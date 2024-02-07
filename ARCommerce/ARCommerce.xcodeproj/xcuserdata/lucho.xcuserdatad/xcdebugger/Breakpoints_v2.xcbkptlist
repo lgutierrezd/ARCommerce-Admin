@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "64E6DB26-8609-4807-8658-74DE4B4B2CA0"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4BE094EF-755F-4A5A-A821-459B42E201AC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ARCommerce/Core/Category/CoreCategory.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "addCategory(category:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4BE094EF-755F-4A5A-A821-459B42E201AC - 502d6ded771d1d1e"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for ARCommerce.CoreCategory.addCategory(category: ARCommerce.Category) async throws -&gt; ARCommerce.Category"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/E-commerce-iOSAdmin/ARCommerce/ARCommerce/Core/Category/CoreCategory.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "126">
+               </Location>
+               <Location
+                  uuid = "4BE094EF-755F-4A5A-A821-459B42E201AC - 86804b8bce618104"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for ARCommerce.CoreCategory.addCategory(category: ARCommerce.Category) async throws -&gt; ARCommerce.Category"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/E-commerce-iOSAdmin/ARCommerce/ARCommerce/Core/Category/CoreCategory.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "4BE094EF-755F-4A5A-A821-459B42E201AC - f9df53304834c11c"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for ARCommerce.CoreCategory.addCategory(category: ARCommerce.Category) async throws -&gt; ARCommerce.Category"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/E-commerce-iOSAdmin/ARCommerce/ARCommerce/Core/Category/CoreCategory.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "4BE094EF-755F-4A5A-A821-459B42E201AC - 5ee01f3cddffe719"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for ARCommerce.CoreCategory.addCategory(category: ARCommerce.Category) async throws -&gt; ARCommerce.Category"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/E-commerce-iOSAdmin/ARCommerce/ARCommerce/Core/Category/CoreCategory.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "67">
+               </Location>
+               <Location
+                  uuid = "4BE094EF-755F-4A5A-A821-459B42E201AC - c83dc9f9025182b3"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for ARCommerce.CoreCategory.addCategory(category: ARCommerce.CategoryV1) async throws -&gt; ARCommerce.CategoryV1"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/E-commerce-iOSAdmin/ARCommerce/ARCommerce/Core/Category/CoreCategory.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "126">
+               </Location>
+               <Location
+                  uuid = "4BE094EF-755F-4A5A-A821-459B42E201AC - daf77a1aaada27ad"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for ARCommerce.CoreCategory.addCategory(category: ARCommerce.CategoryV1) async throws -&gt; ARCommerce.CategoryV1"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/E-commerce-iOSAdmin/ARCommerce/ARCommerce/Core/Category/CoreCategory.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "4BE094EF-755F-4A5A-A821-459B42E201AC - 2f6a2d3ed460c6b1"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for ARCommerce.CoreCategory.addCategory(category: ARCommerce.CategoryV1) async throws -&gt; ARCommerce.CategoryV1"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/E-commerce-iOSAdmin/ARCommerce/ARCommerce/Core/Category/CoreCategory.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "64">
+               </Location>
+               <Location
+                  uuid = "4BE094EF-755F-4A5A-A821-459B42E201AC - 33ff70dfb18868b0"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for ARCommerce.CoreCategory.addCategory(category: ARCommerce.CategoryV1) async throws -&gt; ARCommerce.CategoryV1"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/E-commerce-iOSAdmin/ARCommerce/ARCommerce/Core/Category/CoreCategory.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "70">
+               </Location>
+               <Location
+                  uuid = "4BE094EF-755F-4A5A-A821-459B42E201AC - 2f6a2d3ed460c6b1"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for ARCommerce.CoreCategory.addCategory(category: ARCommerce.CategoryV1) async throws -&gt; ARCommerce.CategoryV1"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/E-commerce-iOSAdmin/ARCommerce/ARCommerce/Core/Category/CoreCategory.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "94">
+               </Location>
+               <Location
+                  uuid = "4BE094EF-755F-4A5A-A821-459B42E201AC - a25d41d4bdeacce"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for ARCommerce.CoreCategory.addCategory(category: ARCommerce.CategoryV1) async throws -&gt; ARCommerce.CategoryV1"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/E-commerce-iOSAdmin/ARCommerce/ARCommerce/Core/Category/CoreCategory.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "67">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
