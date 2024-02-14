@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct AddAndUpdateProductView: View {
-    @State var product: Product?
+    @State var product: ProductV1?
     
     @State var listConfigurations = [ProductConfig]()
     
     var isUpdate: Bool?
     
     @State var name: String = ""
-    @State var selectedBrand: Brand?
-    @State var selectedCategory: ARCommerce.Category?
-    @State var selectedSuppliers: Set<Supplier>? = []
     
+    @State var selectedBrand: Brand?
+    @State var selectedCategories: Set<String> = []
+    @State var selectedSuppliers: Set<Supplier>? = []
     
     @State private var selectedImagesByConfiguration: [UIImage]?
     @State var showImagePicker = false
@@ -38,100 +38,102 @@ struct AddAndUpdateProductView: View {
     @State private var alertText: String = ""
     
     @State private var loading = false
-    
     var body: some View {
-        ZStack {
-            Form {
-                Section {
-                    ConfigurationNameBrandCategorySupplier(name: $name, selectedBrand: $selectedBrand, selectedCategory: $selectedCategory, selectedSuppliers: $selectedSuppliers)
+        NavigationStack {
+            ZStack {
+                Form {
+                    Section {
+                        ConfigurationNameBrandCategorySupplier(name: $name, selectedBrand: $selectedBrand, selectedCategories: $selectedCategories, selectedSuppliers: $selectedSuppliers)
                         
-                } header: {
-                    Text("Product Definition")
-                }
-                
-                Section {
-                    ConfigurationProduct(selectedConfig: $selectedConfig, listConfigurations: $listConfigurations)
-                        .onChange(of: selectedConfig) { _,_ in
-                            if !listConfigurations.isEmpty {
+                    } header: {
+                        Text("Product Definition")
+                    }
+                    
+                    Section {
+                        ConfigurationProduct(selectedConfig: $selectedConfig, listConfigurations: $listConfigurations)
+                            .onChange(of: selectedConfig) { _,_ in
+                                if !listConfigurations.isEmpty {
+                                    selectedImagesByConfiguration = listConfigurations[selectedConfig].uimages
+                                }
+                                
+                            }
+                    } header: {
+                        HStack {
+                            Text("Configuration")
+                            Spacer()
+                            Button {
+                                if !(listConfigurations.count < 1) {
+                                    self.showAlertDeleteConfig = true
+                                }
+                            } label: {
+                                Image(systemName: "minus.circle.fill")
+                            }
+                            Button {
+                                let productConfig = ProductConfig(id: "", price: 0, productionPrice: 0, selectedColor: .blue, colorHex: "", images: [], uimages: [], productDescription: "", stock: [], isActive: true, extraConfig: [:])
+                                self.listConfigurations.append(productConfig)
+                                print("count \(listConfigurations.count)")
+                                
+                                if listConfigurations.count == 1 {
+                                    self.selectedConfig = 0
+                                }
+                            } label: {
+                                Image(systemName: "plus.circle.fill")
+                            }
+                        }
+                        .alert(isPresented: $showAlertDeleteConfig) {
+                            Alert(title: Text("Delete configuration selected"), message: Text("Are you sure?"), primaryButton: .destructive(Text("Accept"), action: {
+                                self.listConfigurations.remove(at: self.selectedConfig)
+                                self.selectedConfig -= 1
+                            }), secondaryButton: .cancel())
+                        }
+                    }
+                    
+                    Section {
+                        if listConfigurations.count > 0 {
+                            ConfigurationProductImageView(selectedConfig: $selectedConfig, selectedImagesByConfiguration: $selectedImagesByConfiguration)
+                        }
+                    } header: {
+                        HStack {
+                            Text("Image Configuration")
+                            Spacer()
+                            Button {
+                                if listConfigurations[selectedConfig].uimages!.count > 0 {
+                                    listConfigurations[selectedConfig].uimages?.removeLast()
+                                    selectedImagesByConfiguration = listConfigurations[selectedConfig].uimages
+                                }
+                            } label: {
+                                Image(systemName: "minus.circle.fill")
+                            }
+                            .disabled(disableAddImage())
+                            Button(action: {
+                                showImagePicker = true
+                            }, label: {
+                                Image(systemName: "plus.circle.fill")
+                            })
+                            .disabled(disableAddImage())
+                        }
+                    }
+                    .fullScreenCover(isPresented: $showImagePicker, onDismiss: nil) {
+                        ImagePicker() { pickedImage in
+                            showImagePicker = false
+                            if let image = pickedImage {
+                                listConfigurations[selectedConfig].uimages?.append(image)
                                 selectedImagesByConfiguration = listConfigurations[selectedConfig].uimages
                             }
-                            
                         }
-                } header: {
-                    HStack {
-                        Text("Configuration")
-                        Spacer()
-                        Button {
-                            if !(listConfigurations.count < 1) {
-                                self.showAlertDeleteConfig = true
-                            }
-                        } label: {
-                            Image(systemName: "minus.circle.fill")
-                        }
-                        Button {
-                            let productConfig = ProductConfig(id: "", price: 0, productionPrice: 0, selectedColor: .blue, colorHex: "", images: [], uimages: [], productDescription: "", stock: [], isActive: true, extraConfig: [:])
-                            self.listConfigurations.append(productConfig)
-                            print("count \(listConfigurations.count)")
-                            
-                            if listConfigurations.count == 1 {
-                                self.selectedConfig = 0
-                            }
-                        } label: {
-                            Image(systemName: "plus.circle.fill")
-                        }
-                    }
-                    .alert(isPresented: $showAlertDeleteConfig) {
-                        Alert(title: Text("Delete configuration selected"), message: Text("Are you sure?"), primaryButton: .destructive(Text("Accept"), action: {
-                            self.listConfigurations.remove(at: self.selectedConfig)
-                            self.selectedConfig -= 1
-                        }), secondaryButton: .cancel())
                     }
                 }
                 
-                Section {
-                    if listConfigurations.count > 1 {
-                        ConfigurationProductImageView(selectedConfig: $selectedConfig, selectedImagesByConfiguration: $selectedImagesByConfiguration)
+                if loading {
+                    VStack {
+                        Text("Loading...")
+                            .font(.footnote)
+                        ProgressView()
                     }
-                } header: {
-                    HStack {
-                        Text("Image Configuration")
-                        Spacer()
-                        Button {
-                            if listConfigurations[selectedConfig].uimages!.count > 0 {
-                                listConfigurations[selectedConfig].uimages?.removeLast()
-                                selectedImagesByConfiguration = listConfigurations[selectedConfig].uimages
-                            }
-                        } label: {
-                            Image(systemName: "minus.circle.fill")
-                        }
-                        .disabled(disableAddImage())
-                        Button(action: {
-                            showImagePicker = true
-                        }, label: {
-                            Image(systemName: "plus.circle.fill")
-                        })
-                        .disabled(disableAddImage())
-                    }
-                }
-                .fullScreenCover(isPresented: $showImagePicker, onDismiss: nil) {
-                    ImagePicker() { pickedImage in
-                        showImagePicker = false
-                        if let image = pickedImage {
-                            listConfigurations[selectedConfig].uimages?.append(image)
-                            selectedImagesByConfiguration = listConfigurations[selectedConfig].uimages
-                        }
-                    }
-                }
-            }
-            
-            if loading {
-                VStack {
-                    Text("Loading...")
-                        .font(.footnote)
-                    ProgressView()
                 }
             }
         }
+        
         .navigationTitle(isUpdate ?? false ? "Update Product" :"Add Product")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -161,9 +163,14 @@ struct AddAndUpdateProductView: View {
             if isUpdate ?? false {
                 Task {
                     loading = true
-                    self.listConfigurations = try await addAndUpdateProductViewModel.getConfigs(productId: self.product!.id)
-                    if self.listConfigurations.count > 0 {
-                        self.selectedConfig = 0
+                    do {
+                        self.listConfigurations = try await addAndUpdateProductViewModel.getConfigs(productId: self.product!.id)
+                        if self.listConfigurations.count > 0 {
+                            self.selectedConfig = 0
+                        }
+                    } catch {
+                        handleError(error)
+                        restartViewData()
                     }
                     loading = false
                 }
@@ -181,14 +188,14 @@ struct AddAndUpdateProductView: View {
     
     private func isValidAddProduct() -> Bool {
         if name.isEmpty || name.count < 4 {
-           return false
+            return false
         }
         
         if selectedSuppliers?.count ?? 0 < 1 {
             return false
         }
         
-        if selectedCategory == nil {
+        if selectedCategories.count < 1 {
             return false
         }
         
@@ -203,15 +210,18 @@ struct AddAndUpdateProductView: View {
             do {
                 self.loading = true
                 if isValidAddProduct() {
-                    if let brand = selectedBrand, let category = selectedCategory, let suppliers = selectedSuppliers  {
-                        self.product = try await addAndUpdateProductViewModel.updateProduct(id: self.product!.id, name: name, brand: brand, category: category, suppliers: suppliers)
-                    }
-                    if let product = product {
+                    if let product = self.product, let brand = selectedBrand, let suppliers = selectedSuppliers  {
+                        product.name = name
+                        product.brand = brand
+                        product.categories = selectedCategories.compactMap({ Category(_id: $0, name: "")})
+                        product.suppliers = suppliers.compactMap({$0.id})
+                        product.isActive = true //falta componente para esto
+                        let _ = try await addAndUpdateProductViewModel.updateProduct(product: product)
                         try await addAndUpdateProductViewModel.updateConfigurations(product: product, listConfiguration: listConfigurations)
                     }
-//                    Task {
-//                        restartViewData()
-//                    }
+                    Task {
+                        restartViewData()
+                    }
                     
                 }
             } catch {
@@ -248,9 +258,9 @@ struct AddAndUpdateProductView: View {
             do {
                 self.loading = true
                 if isValidAddProduct() {
-                    try await addProductDefinition()
-                    try await addConfigurations()
-                    
+                    if let product = try await addProductDefinition() {
+                        try await addConfigurations(product: ProductV1(_id: product.id, id: product.id, isActive: product.isActive, name: product.name, slug: product.slug))
+                    }
                     restartViewData()
                 }
                 
@@ -260,28 +270,19 @@ struct AddAndUpdateProductView: View {
         }
     }
     
-    private func addProductDefinition() async throws {
-        if let brand = selectedBrand, let category = selectedCategory, let suppliers = selectedSuppliers  {
-            self.product = try await addAndUpdateProductViewModel.addProduct(name: name, brand: brand, category: category, suppliers: suppliers)
+    private func addProductDefinition() async throws -> Product? {
+        if let brand = selectedBrand, let suppliers = selectedSuppliers  {
+           return try await addAndUpdateProductViewModel.addProduct(name: name, brand: brand, categories: selectedCategories, suppliers: suppliers)
         }
+        return nil
     }
     
-    private func addConfigurations() async throws {
-        if let product = product {
-            try await addAndUpdateProductViewModel.addConfigurations(product: product, listConfiguration: listConfigurations)
-        }
+    private func addConfigurations(product: ProductV1) async throws {
+        try await addAndUpdateProductViewModel.addConfigurations(product: product, listConfiguration: listConfigurations)
     }
     
     private func searchProductByName(name: String) {
         
-    }
-    
-    private func modifyProduct() {
-        Task {
-            if let product = product {
-                try await addAndUpdateProductViewModel.modifyProduct(product: product, listConfiguration: listConfigurations)
-            }
-        }
     }
     
     private func restartViewData() {
@@ -289,16 +290,16 @@ struct AddAndUpdateProductView: View {
         self.listConfigurations.removeAll()
         
         self.name = ""
-//        self.selectedBrand: Brand?
-//        self.selectedCategory: ARCommerce.Category?
-//        self.selectedSuppliers: Set<Supplier>? = []
+        //        self.selectedBrand: Brand?
+        //        self.selectedCategory: ARCommerce.Category?
+        //        self.selectedSuppliers: Set<Supplier>? = []
         
         self.selectedImagesByConfiguration?.removeAll()
         self.selectedConfig = 0
         self.loading = false
     }
 }
-
-#Preview {
-    AddAndUpdateProductView(isUpdate: false)
-}
+//
+//#Preview {
+//    AddAndUpdateProductView(isUpdate: false)
+//}

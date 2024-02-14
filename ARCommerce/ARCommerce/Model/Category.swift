@@ -34,13 +34,15 @@ class Setup: Identifiable, Codable, Hashable {
 class Category: Hashable, Codable, Equatable {
     @Attribute(.unique) var _id: String
     var name: String
-    var parent: ARCommerce.Category? = nil
+    @Relationship var childs: [String]? = nil
+    var isMain: Bool?
     var setup: [Setup]? = nil
     
-    init(_id: String, name: String, parent: Category? = nil, setup: [Setup]? = nil) {
+    init(_id: String, name: String, childs: [String]? = nil, isMain: Bool? = false ,setup: [Setup]? = nil) {
         self._id = _id
         self.name = name
-        self.parent = parent
+        self.childs = childs
+        self.isMain = isMain
         self.setup = setup
     }
     
@@ -48,13 +50,14 @@ class Category: Hashable, Codable, Equatable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self._id = try container.decode(String.self, forKey: ._id)
         self.name = try container.decode(String.self, forKey: .name)
+        self.isMain = try? container.decode(Bool.self, forKey: .isMain)
         if let setup = try? container.decode([Setup].self, forKey: .setup) {
             self.setup = setup
         }
-        if let parent = try? container.decode(Category.self, forKey: .parent) {
-            self.parent = parent
+        if let childs = try? container.decode([String].self, forKey: .childs) {
+            self.childs = childs
         } else {
-            self.parent = nil
+            self.childs = nil
         }
         
     }
@@ -63,14 +66,16 @@ class Category: Hashable, Codable, Equatable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(_id, forKey: ._id)
         try container.encode(name, forKey: .name)
+        try container.encode(isMain, forKey: .isMain)
         try container.encode(setup, forKey: .setup)
-        try container.encode(parent, forKey: .parent)
+        try container.encode(childs, forKey: .childs)
     }
     
     private enum CodingKeys: String, CodingKey {
         case _id
         case name
-        case parent
+        case childs
+        case isMain
         case setup
     }
 }
@@ -78,18 +83,21 @@ class Category: Hashable, Codable, Equatable {
 class CategoryV1: Codable, Identifiable, Equatable, Hashable {
     var _id: String
     var name: String
-    var parent: CategoryV1? = nil
+    var childs: [String]? = nil
+    var isMain: Bool?
     var setup: [Setup]? = nil
     
     init() {
         self._id = ""
         self.name = ""
+        self.isMain = false
     }
     
-    init(_id: String, name: String, parent: CategoryV1? = nil, setup: [Setup]? = nil) {
+    init(_id: String, name: String, childs: [String]? = nil, isMain:Bool? = false ,setup: [Setup]? = nil) {
         self._id = _id
         self.name = name
-        self.parent = parent
+        self.childs = childs
+        self.isMain = isMain
         self.setup = setup
     }
     
@@ -100,10 +108,11 @@ class CategoryV1: Codable, Identifiable, Equatable, Hashable {
         if let setup = try? container.decode([Setup].self, forKey: .setup) {
             self.setup = setup
         }
-        if let parent = try? container.decode(CategoryV1.self, forKey: .parent) {
-            self.parent = parent
+        self.isMain = try? container.decode(Bool.self, forKey: .isMain)
+        if let childs = try? container.decode([String].self, forKey: .childs) {
+            self.childs = childs
         } else {
-            self.parent = nil
+            self.childs = nil
         }
         
     }
@@ -113,24 +122,27 @@ class CategoryV1: Codable, Identifiable, Equatable, Hashable {
         try container.encode(_id, forKey: ._id)
         try container.encode(name, forKey: .name)
         try container.encode(setup, forKey: .setup)
-        try container.encode(parent, forKey: .parent)
+        try container.encode(isMain, forKey: .isMain)
+        try container.encode(childs, forKey: .childs)
     }
     
     private enum CodingKeys: String, CodingKey {
         case _id
         case name
-        case parent
+        case childs
+        case isMain
         case setup
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(_id)
         hasher.combine(name)
-        hasher.combine(parent)
+        hasher.combine(childs)
+        hasher.combine(isMain)
         hasher.combine(setup)
     }
     
     static func == (lhs: CategoryV1, rhs: CategoryV1) -> Bool {
-        return lhs._id == rhs._id && lhs.name == rhs.name && lhs.parent == rhs.parent && lhs.setup == rhs.setup
+        return lhs._id == rhs._id && lhs.name == rhs.name && lhs.childs == rhs.childs && lhs.setup == rhs.setup && lhs.isMain == rhs.isMain
     }
 }

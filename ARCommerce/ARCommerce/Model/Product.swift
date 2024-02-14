@@ -12,21 +12,33 @@ struct Product: Identifiable, Codable, Equatable, Hashable {
     let name: String
     let slug: String
     let isActive: Bool
-    let category: String
+    let categories: [String]
     let brand: String
     let suppliers: Array<String>
 }
 
 class ProductV1: Codable {
     let _id: String
-    let brand: Brand
-    let category: Category
+    var brand: Brand
+    var categories: [Category]
     let id: String
     var isActive: Bool
-    let name: String
-    //let reviews: [Review]
-    let slug: String
-    let suppliers: [String]
+    var name: String
+    var reviews: [Review]
+    var slug: String
+    var suppliers: [String]
+    
+    init(_id: String, brand: Brand = Brand(id: "", name: ""), categories: [Category] = [], id: String, isActive: Bool, name: String, reviews: [Review] = [], slug: String, suppliers: [String] = []) {
+        self._id = _id
+        self.brand = brand
+        self.categories = categories
+        self.id = id
+        self.isActive = isActive
+        self.name = name
+        self.reviews = reviews
+        self.slug = slug
+        self.suppliers = suppliers
+    }
 }
 
 class ProductDetail: Identifiable {

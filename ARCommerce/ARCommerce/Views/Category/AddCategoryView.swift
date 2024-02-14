@@ -15,25 +15,28 @@ struct AddCategoryView: View {
     @State var name = ""
     @State var numberOfSetUps: Int = 0
     @State private var selectedCategory: ARCommerce.CategoryV1?
-    @State private var selectedParentCategory: ARCommerce.Category?
+    @State private var selectedChildsCategoryId: Set<String> = Set<String>()
     
     @State private var keys: [String] = Array(repeating: "", count: 0)
     @State private var values: [String] = Array(repeating: "", count: 0)
+    @State private var isMain: Bool = false
     
     var body: some View {
-        List {
-            CategoryFormView(
-                pickerParentCategories: globalDataManagerViewModel.categories,
-                name: $name,
-                selectedParentCategory: $selectedParentCategory,
-                selectedCategory: $selectedCategory ,
-                keys: $keys,
-                values: $values,
-                numberOfSetUps: $numberOfSetUps,
-                action: {
-                    addCategory()
-                }, isUpdate: false
-            )
+        NavigationStack {
+            List {
+                CategoryFormView(
+                    pickerParentCategories: globalDataManagerViewModel.categories,
+                    name: $name,
+                    selectedChildsCategoryId: $selectedChildsCategoryId,
+                    selectedCategory: $selectedCategory ,
+                    keys: $keys,
+                    values: $values,
+                    numberOfSetUps: $numberOfSetUps, isMain: $isMain,
+                    action: {
+                        addCategory()
+                    }, isUpdate: false
+                )
+            }
         }
         .navigationTitle("Add Category")
         .navigationBarTitleDisplayMode(.large)
@@ -47,12 +50,13 @@ struct AddCategoryView: View {
                 setup.append(Setup(_id: String(index), key: key, value: values[index]))
             }
             do {
-                let selectedParent = CategoryV1(_id: selectedParentCategory?._id ?? "", name: selectedParentCategory?.name ?? "")
-                let _ = try await addCategoryViewModel.addCategory(name:name, selectedParent: selectedParent, setup: setup)
+                let selectedChilds = Array<String>(selectedChildsCategoryId)
+                let _ = try await addCategoryViewModel.addCategory(name:name, selectedChilds: selectedChilds, setup: setup)
                 selectedCategory = nil
                 name = ""
                 keys = []
                 values = []
+                isMain = false
             } catch {
                 
             }
@@ -61,6 +65,6 @@ struct AddCategoryView: View {
     }
 }
 
-#Preview {
-    AddCategoryView()
-}
+//#Preview {
+//    AddCategoryView()
+//}

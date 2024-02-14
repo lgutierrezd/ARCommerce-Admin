@@ -8,8 +8,8 @@
 import Foundation
 
 class APIProductDetail: NetworkRequestable {
-    func addConfigurations(product: Product, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
-        let urlString = "http://192.168.100.28:3000/api/v1/products/config/\(product.id)"
+    func addConfigurations(product: ProductV1, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
+        let urlString = "\(Self.baseURL)api/v1/products/config/\(product.id)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -63,7 +63,7 @@ class APIProductDetail: NetworkRequestable {
     }
     
     func getProductcConfiguration(productId: String) async throws -> [Config] {
-        let urlString = "http://192.168.100.28:3000/api/v1/products/config/\(productId)"
+        let urlString = "\(Self.baseURL)api/v1/products/config/\(productId)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -97,8 +97,8 @@ class APIProductDetail: NetworkRequestable {
         }
     }
     
-    func updateConfigurations(product: Product, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
-        let urlString = "http://192.168.100.28:3000/api/v1/products/config/\(product.id)"
+    func updateConfigurations(product: ProductV1, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
+        let urlString = "\(Self.baseURL)api/v1/products/config/\(product.id)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }

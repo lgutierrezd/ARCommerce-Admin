@@ -9,7 +9,7 @@ import Foundation
 
 class APIProductsSeeAll: NetworkRequestable {
     func getAllProducts(page: Int) async throws -> [ProductV1] {
-        let urlString = "http://192.168.100.28:3000/api/v1/products?page=\(page)&limit=10"
+        let urlString = "\(Self.baseURL)api/v1/products?page=\(page)&limit=10"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -22,7 +22,7 @@ class APIProductsSeeAll: NetworkRequestable {
             guard let jsonResponse = try JSONSerialization.jsonObject(with: responseData) as? [String: Any] else {
                 throw NetworkError.invalidData
             }
-
+            
             guard let dataJSON = jsonResponse["data"] as? [String: Any] else {
                 throw NetworkError.invalidData
             }
@@ -32,9 +32,10 @@ class APIProductsSeeAll: NetworkRequestable {
             }
             
             let dataProduct = try JSONSerialization.data(withJSONObject: productJson)
+            
             let decoder = JSONDecoder()
             let products = try decoder.decode([ProductV1].self, from: dataProduct)
-
+            
             return products
         } catch {
             throw error
@@ -42,7 +43,7 @@ class APIProductsSeeAll: NetworkRequestable {
     }
     
     func deleteProduct(id: String) async throws -> Bool {
-        let urlString = "http://192.168.100.28:3000/api/v1/products/\(id)"
+        let urlString = "\(Self.baseURL)api/v1/products/\(id)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -57,7 +58,7 @@ class APIProductsSeeAll: NetworkRequestable {
     }
     
     func activateProduct(id: String) async throws -> Bool {
-        let urlString = "http://192.168.100.28:3000/api/v1/products/\(id)"
+        let urlString = "\(Self.baseURL)api/v1/products/\(id)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }

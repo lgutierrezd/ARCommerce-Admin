@@ -8,7 +8,7 @@
 import Foundation
 
 extension CoreProducts {
-    func addConfigurations(product: Product, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
+    func addConfigurations(product: ProductV1, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
         let newConfigs = try await saveConfigurationImagesFirebase(product: product, listConfigurations: listConfigurations)
         
         let apiProductConfig = APIProductDetail()
@@ -16,7 +16,7 @@ extension CoreProducts {
         return productDetail
     }
 
-    func updateConfigurations(product: Product, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
+    func updateConfigurations(product: ProductV1, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
         let newConfigs = try await saveConfigurationImagesFirebase(product: product, listConfigurations: listConfigurations)
         
         let apiProductConfig = APIProductDetail()
@@ -24,7 +24,7 @@ extension CoreProducts {
         return productDetail
     }
     
-    func saveConfigurationImagesFirebase(product: Product, listConfigurations: [ProductConfig]) async throws -> [ProductConfig] {
+    func saveConfigurationImagesFirebase(product: ProductV1, listConfigurations: [ProductConfig]) async throws -> [ProductConfig] {
         do {
             for (indexConfig, config) in listConfigurations.enumerated() {
                 if let uimages = config.uimages {

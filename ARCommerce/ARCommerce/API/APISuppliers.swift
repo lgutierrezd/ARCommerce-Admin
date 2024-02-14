@@ -9,7 +9,7 @@ import Foundation
 
 class APISuppliers: NetworkRequestable {
     func getSuppliers() async throws -> [Supplier] {
-        let urlString = "http://192.168.100.28:3000/api/v1/supplier"
+        let urlString = "\(Self.baseURL)api/v1/supplier"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -39,7 +39,7 @@ class APISuppliers: NetworkRequestable {
     }
     
     func addSuppliers(supplier: Supplier) async throws -> Supplier {
-        let urlString = "http://192.168.100.28:3000/api/v1/supplier"
+        let urlString = "\(Self.baseURL)api/v1/supplier"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -78,7 +78,7 @@ class APISuppliers: NetworkRequestable {
     }
     
     func getUpdateDeleteSuppliers(id: String, supplier: Supplier?, method: HTTPMethod) async throws -> Supplier? {
-        let urlString = "http://192.168.100.28:3000/api/v1/supplier/\(id)"
+        let urlString = "\(Self.baseURL)api/v1/supplier/\(id)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }

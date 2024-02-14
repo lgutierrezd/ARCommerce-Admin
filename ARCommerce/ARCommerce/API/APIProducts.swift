@@ -8,8 +8,8 @@
 import Foundation
 
 class APIProducts: NetworkRequestable {
-    func addProduct(name: String, brand: Brand, category: ARCommerce.Category, suppliers: Set<Supplier>) async throws -> Product {
-        let urlString = "http://192.168.100.28:3000/api/v1/products"
+    func addProduct(name: String, brand: Brand, categories: Set<String>, suppliers: Set<Supplier>) async throws -> Product {
+        let urlString = "\(Self.baseURL)api/v1/products"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -18,7 +18,7 @@ class APIProducts: NetworkRequestable {
         
         let requestBody: [String: Any] = [
             "name": name,
-            "category": category._id,
+            "categories": categories.compactMap( {$0} ),
             "brand": brand.id,
             "suppliers": suppliers,
             "isActive": true,
@@ -52,20 +52,20 @@ class APIProducts: NetworkRequestable {
         }
     }
     
-    func updateProduct(id: String, name: String, brand: Brand, category: ARCommerce.Category, suppliers: Set<Supplier>) async throws -> Product {
-        let urlString = "http://192.168.100.28:3000/api/v1/products/\(id)"
+    func updateProduct(product: ProductV1) async throws -> Product {
+        let urlString = "\(Self.baseURL)api/v1/products/\(product._id)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
         
-        let suppliers: [String] = suppliers.compactMap { $0.id }
+        let suppliers: [String] = product.suppliers.compactMap { $0 }
         
         let requestBody: [String: Any] = [
-            "name": name,
-            "category": category._id,
-            "brand": brand.id,
+            "name": product.name,
+            "categories": product.categories.compactMap({ $0._id }),
+            "brand": product.brand.id,
             "suppliers": suppliers,
-            "isActive": true,
+            "isActive": product.isActive,
             "config": []
         ]
         

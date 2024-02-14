@@ -14,27 +14,27 @@ final class AddAndUpdateProductViewModel: ObservableObject {
         return try coreProducts.getInitialData()
     }
     
-    func addProduct(name: String, brand: Brand, category: ARCommerce.Category, suppliers: Set<Supplier>) async throws -> Product {
+    func addProduct(name: String, brand: Brand, categories: Set<String>, suppliers: Set<Supplier>) async throws -> Product {
         let coreProducts = CoreProducts()
-        return try await coreProducts.addProduct(name: name, brand: brand, category: category, suppliers: suppliers)
+        return try await coreProducts.addProduct(name: name, brand: brand, categories: categories, suppliers: suppliers)
     }
     
-    func addConfigurations(product: Product, listConfiguration: [ProductConfig]) async throws {
+    func addConfigurations(product: ProductV1, listConfiguration: [ProductConfig]) async throws {
         let coreProducts = CoreProducts()
         let _ = try await coreProducts.addConfigurations(product: product, listConfigurations: listConfiguration)
     }
     
-    func updateProduct(id: String,name: String, brand: Brand, category: ARCommerce.Category, suppliers: Set<Supplier>) async throws -> Product {
+    func updateProduct(product: ProductV1) async throws -> Product {
         let coreProducts = CoreProducts()
-        return try await coreProducts.updateProduct(id: id, name: name, brand: brand, category: category, suppliers: suppliers)
+        return try await coreProducts.updateProduct(product: product)
     }
     
-    func updateConfigurations(product: Product, listConfiguration: [ProductConfig]) async throws {
+    func updateConfigurations(product: ProductV1, listConfiguration: [ProductConfig]) async throws {
         let coreProducts = CoreProducts()
         let _ = try await coreProducts.updateConfigurations(product: product, listConfigurations: listConfiguration)
     }
     
-    func modifyProduct(product: Product, listConfiguration: [ProductConfig]) async throws {
+    func modifyProduct(product: ProductV1, listConfiguration: [ProductConfig]) async throws {
         let coreProducts = CoreProducts()
         let _ = try await coreProducts.addConfigurations(product: product, listConfigurations: listConfiguration)
     }

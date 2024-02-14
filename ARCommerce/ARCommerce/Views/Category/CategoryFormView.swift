@@ -11,30 +11,38 @@ struct CategoryFormView: View {
     let pickerParentCategories: [ARCommerce.Category]
     @State private var uuid = UUID()
     @Binding var name: String
-    @Binding var selectedParentCategory: ARCommerce.Category?
+    @Binding var selectedChildsCategoryId: Set<String>
     @Binding var selectedCategory: ARCommerce.CategoryV1?
     @Binding var keys: [String]
     @Binding var values: [String]
     @Binding var numberOfSetUps: Int
+    @Binding var isMain: Bool
+    
     let action: () -> Void
     let isUpdate: Bool
     var body: some View {
         //UPDATE CATEGORY SECTION
         Section {
             TextField("Name", text: $name)
-            Picker("Parent Category", selection: $selectedParentCategory) {
-                Text("None").tag(nil as ARCommerce.CategoryV1?)
-                ForEach(pickerParentCategories, id: \.self) { category in
-                    Text(category.name).tag(category as ARCommerce.Category?)
-                }
+            Toggle("Is Main Category?", isOn: $isMain)
+            NavigationLink(destination: SelectCategoriesView(selectedItems: $selectedChildsCategoryId, categories: pickerParentCategories)) {
+                Text("Select Childs")
             }
-            .onChange(of: selectedCategory ?? ARCommerce.CategoryV1() , { _,newValue in
-                if let parent = pickerParentCategories.first(where: { $0._id == newValue.parent?._id }) {
-                    selectedParentCategory = parent
-                } else {
-                    selectedParentCategory = nil
-                }
-            })
+            
+            
+//            Picker("Parent Category", selection: $selectedParentCategory) {
+//                Text("None").tag(nil as ARCommerce.CategoryV1?)
+//                ForEach(pickerParentCategories, id: \.self) { category in
+//                    Text(category.name).tag(category as ARCommerce.Category?)
+//                }
+//            }
+//            .onChange(of: selectedCategory ?? ARCommerce.CategoryV1() , { _,newValue in
+//                if let childs = pickerParentCategories.first(where: { $0._id == newValue.childs?.first?._id }) {
+//                    selectedParentCategory = childs
+//                } else {
+//                    selectedParentCategory = nil
+//                }
+//            })
         } header: {
             HStack {
                 if isUpdate {

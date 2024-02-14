@@ -30,13 +30,18 @@ class DatabaseFacade {
         print("update")
     }
     
+    @MainActor
     func deleteRecord<T: PersistentModel>(_ record: T) throws {
-        print("delete")
+        let context = sharedModelContainer.mainContext
+        context.delete(record)
     }
     
     @MainActor
     func fetchRecord<T: PersistentModel>(from type: T.Type) throws -> [T]? {
         let context = sharedModelContainer.mainContext
+        defer {
+            
+        }
         return try context.fetch(FetchDescriptor<T>())
     }
     

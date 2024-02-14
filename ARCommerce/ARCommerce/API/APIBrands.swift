@@ -9,7 +9,7 @@ import Foundation
 
 class APIBrands: NetworkRequestable {
     func getBrands() async throws -> [Brand] {
-        let urlString = "http://192.168.100.28:3000/api/v1/brand"
+        let urlString = "\(Self.baseURL)api/v1/brand"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -39,7 +39,7 @@ class APIBrands: NetworkRequestable {
     }
     
     func addBrand(brand: Brand) async throws -> Brand {
-        let urlString = "http://192.168.100.28:3000/api/v1/brand"
+        let urlString = "\(Self.baseURL)api/v1/brand"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -76,7 +76,7 @@ class APIBrands: NetworkRequestable {
     }
     
     func updateBrand(brand: Brand) async throws -> Brand {
-        let urlString = "http://192.168.100.28:3000/api/v1/brand/\(brand.id)"
+        let urlString = "\(Self.baseURL)api/v1/brand/\(brand.id)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -113,7 +113,7 @@ class APIBrands: NetworkRequestable {
     }
     
     func deleteBrand(brand: Brand) async throws -> Bool {
-        let urlString = "http://192.168.100.28:3000/api/v1/brand/\(brand.id)"
+        let urlString = "\(Self.baseURL)api/v1/brand/\(brand.id)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }

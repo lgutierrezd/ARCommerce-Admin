@@ -31,6 +31,7 @@ struct APIRequest {
 
 // Protocolo que define la funcionalidad básica de la red
 protocol NetworkRequestable {
+    static var baseURL: String { get }
     func performRequest(request: APIRequest) async throws -> Data
     func performRequest(request: APIRequest) async throws -> Bool
 }
@@ -38,6 +39,10 @@ protocol NetworkRequestable {
 
 // Implementación de NetworkProtocol
 extension NetworkRequestable {
+    static var baseURL: String {
+        return "https://silent-blend-412918.uc.r.appspot.com/"
+        //return "http://192.168.100.28:3000/"
+    }
     fileprivate func saveCookies(_ httpResponse: HTTPURLResponse) {
         if let allHeaderFields = httpResponse.allHeaderFields as? [String: String] {
             if let setCookieHeader = allHeaderFields["Set-Cookie"] {

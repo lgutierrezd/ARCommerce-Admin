@@ -9,7 +9,7 @@ import Foundation
 
 class APIUsers: NetworkRequestable {
     func login(email: String, password: String) async throws -> User {
-        let urlString = "http://192.168.100.28:3000/api/v1/users/login"
+        let urlString = "\(Self.baseURL)api/v1/users/login"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }

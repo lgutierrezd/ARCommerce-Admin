@@ -10,7 +10,7 @@ import SwiftUI
 struct ConfigurationNameBrandCategorySupplier: View {
     @Binding var name: String
     @Binding var selectedBrand: Brand?
-    @Binding var selectedCategory: ARCommerce.Category?
+    @Binding var selectedCategories: Set<String>
     @Binding var selectedSuppliers: Set<Supplier>?
     
     @State private var isSuppliersSectionExpanded: Bool = true
@@ -29,12 +29,13 @@ struct ConfigurationNameBrandCategorySupplier: View {
                 }
             }
             
-            // Picker for Suppliers
-            Picker("Category", selection: $selectedCategory) {
-                ForEach(globalDataManagerViewModel.categories, id: \.self) { category in
-                    Text(category.name).tag(category as ARCommerce.Category?)
-                }
-            }
+            NavigationLink(
+                destination: {
+                    SelectCategoriesView(selectedItems: $selectedCategories, categories: globalDataManagerViewModel.categories)
+                }, label: {
+                    Text("Categories")
+                })
+            
             
             // Picker for Categories
             DisclosureGroup("Suppliers", isExpanded: $isSuppliersSectionExpanded) {
@@ -56,27 +57,8 @@ struct ConfigurationNameBrandCategorySupplier: View {
         }
     }
     
-    private func isValidAddProduct() -> Bool {
-        if name.isEmpty || name.count < 4 {
-            return false
-        }
-        
-        if selectedSuppliers!.count < 1 {
-            return false
-        }
-        
-        if selectedCategory == nil {
-            return false
-        }
-        
-        if selectedBrand == nil {
-            return false
-        }
-        return true
-    }
-    
 }
 
-#Preview {
-    ConfigurationNameBrandCategorySupplier(name: .constant("iphone"), selectedBrand: .constant(Brand(id: "", name: "Apple")), selectedCategory: .constant(Category(_id: "", name: "CellPhones", setup: [Setup(_id: "", key: "", value: "")])), selectedSuppliers: .constant([Supplier(id: "", name: "iCON", email: "icon@icon.com", phone: "88888888")]))
-}
+//#Preview {
+//    ConfigurationNameBrandCategorySupplier(name: .constant("iphone"), selectedBrand: .constant(Brand(id: "", name: "Apple")), selectedCategory: .constant(Category(_id: "", name: "CellPhones", setup: [Setup(_id: "", key: "", value: "")])), selectedSuppliers: .constant([Supplier(id: "", name: "iCON", email: "icon@icon.com", phone: "88888888")]))
+//}

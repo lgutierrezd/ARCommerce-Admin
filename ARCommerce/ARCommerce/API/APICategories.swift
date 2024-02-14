@@ -9,7 +9,7 @@ import Foundation
 
 class APICategories: NetworkRequestable {
     func getCategories(page: Int, limit: Int) async throws -> [ARCommerce.Category] {
-        let urlString = "http://192.168.100.28:3000/api/v1/categories?page=\(page)&limit=\(limit)"
+        let urlString = "\(Self.baseURL)api/v1/categories?page=\(page)&limit=\(limit)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -40,7 +40,7 @@ class APICategories: NetworkRequestable {
     }
     
     func getCategories(page: Int, limit: Int) async throws -> [ARCommerce.CategoryV1] {
-        let urlString = "http://192.168.100.28:3000/api/v1/categories?page=\(page)&limit=\(limit)"
+        let urlString = "\(Self.baseURL)api/v1/categories?page=\(page)&limit=\(limit)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -71,7 +71,7 @@ class APICategories: NetworkRequestable {
     }
     
     func getCategory(id: String) async throws -> ARCommerce.Category {
-        let urlString = "http://192.168.100.28:3000/api/v1/categories/\(id)"
+        let urlString = "\(Self.baseURL)api/v1/categories/\(id)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -102,14 +102,14 @@ class APICategories: NetworkRequestable {
     }
     
     func addCategory(category: ARCommerce.CategoryV1) async throws -> ARCommerce.CategoryV1 {
-        let urlString = "http://192.168.100.28:3000/api/v1/categories"
+        let urlString = "\(Self.baseURL)api/v1/categories"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
         
         var requestBody: [String: Any] = [:]
         
-        if let _isIdEmpty = category.parent?._id.isEmpty {
+        if let _isIdEmpty = category.childs?.isEmpty {
             if _isIdEmpty {
                 requestBody = [
                     "name": category.name,
@@ -118,7 +118,7 @@ class APICategories: NetworkRequestable {
             } else {
                 requestBody = [
                     "name": category.name,
-                    "parent": category.parent?._id ?? "",
+                    "childs": category.childs ?? [],
                     "setup": []
                 ]
             }
@@ -174,23 +174,25 @@ class APICategories: NetworkRequestable {
     }
     
     func updateCategory(category: ARCommerce.CategoryV1) async throws -> ARCommerce.CategoryV1 {
-        let urlString = "http://192.168.100.28:3000/api/v1/categories/\(category._id)"
+        let urlString = "\(Self.baseURL)api/v1/categories/\(category._id)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
         
         var requestBody: [String: Any] = [:]
         
-        if let _isIdEmpty = category.parent?._id.isEmpty {
+        if let _isIdEmpty = category.childs?.isEmpty, let isMain = category.isMain {
             if _isIdEmpty {
                 requestBody = [
                     "name": category.name,
+                    "isMain": isMain,
                     "setup": []
                 ]
             } else {
                 requestBody = [
                     "name": category.name,
-                    "parent": category.parent?._id ?? "",
+                    "childs": category.childs ?? [],
+                    "isMain": isMain,
                     "setup": []
                 ]
             }
@@ -246,7 +248,7 @@ class APICategories: NetworkRequestable {
     }
     
     func deleteCategory(id: String) async throws -> Bool {
-        let urlString = "http://192.168.100.28:3000/api/v1/categories/\(id)"
+        let urlString = "\(Self.baseURL)api/v1/categories/\(id)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }

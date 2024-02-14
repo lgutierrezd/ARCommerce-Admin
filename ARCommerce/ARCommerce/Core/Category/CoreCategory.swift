@@ -35,10 +35,16 @@ class CoreCategory {
         do {
             let apiCategories = APICategories()
             let category = try await apiCategories.addCategory(category: category)
-            if let parent = category.parent {
-                let storeNewCategory: ARCommerce.Category = ARCommerce.Category(_id: category._id, name: category.name, parent: Category(_id: parent._id, name: parent.name), setup: category.setup)
+            if let childs = category.childs {
+                let storeNewCategory: ARCommerce.Category = ARCommerce.Category(
+                    _id: category._id,
+                    name: category.name,
+                    childs: childs,
+                    setup: category.setup)
+                
                 try await database.insertRecord(storeNewCategory)
             }
+ 
             
             return category
         } catch {
