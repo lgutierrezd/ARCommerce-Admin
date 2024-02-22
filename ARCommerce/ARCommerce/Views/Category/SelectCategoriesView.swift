@@ -29,24 +29,6 @@ struct SelectCategoriesView: View {
     }
 }
 
-struct SelectRow: View {
-    var title: String
-    var isSelected: Bool
-    var action: () -> Void
-    var body: some View {
-        Button(action: self.action) {
-            HStack {
-                Text(title)
-                Spacer()
-                if isSelected {
-                    Image(systemName: "checkmark")
-                        .foregroundColor(.blue)
-                }
-            }
-        }
-    }
-}
-
 //#Preview {
 //    SelectCategoriesView(categories: [CategoryV1(_id: "1", name: "Uno"), CategoryV1(_id: "2", name: "Dos")])
 //}

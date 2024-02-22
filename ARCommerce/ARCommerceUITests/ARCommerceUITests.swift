@@ -8,10 +8,14 @@
 import XCTest
 
 final class ARCommerceUITests: XCTestCase {
+    var app: XCUIApplication!
+    var buttonLogin: XCUIElement!
 
     override func setUpWithError() throws {
+        app = XCUIApplication()
+        buttonLogin = app.buttons["Iniciar sesión"].firstMatch
         // Put setup code here. This method is called before the invocation of each test method in the class.
-
+        app.launch()
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
 
@@ -22,12 +26,12 @@ final class ARCommerceUITests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launch()
-
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testLogin() throws {
+        buttonLogin.tap()
+        let newViewAppeared = expectation(for: NSPredicate(format: "exists == true"), evaluatedWith: app.navigationBars.firstMatch, handler: nil)
+        
+        wait(for: [newViewAppeared], timeout: 10)
+        XCTAssertTrue(app.navigationBars.firstMatch.exists)
     }
 
     func testLaunchPerformance() throws {
@@ -35,6 +39,9 @@ final class ARCommerceUITests: XCTestCase {
             // This measures how long it takes to launch your application.
             measure(metrics: [XCTApplicationLaunchMetric()]) {
                 XCUIApplication().launch()
+                buttonLogin.tap()
+                let newViewAppeared = expectation(for: NSPredicate(format: "exists == true"), evaluatedWith: app.navigationBars.firstMatch, handler: nil)
+                wait(for: [newViewAppeared], timeout: 10)
             }
         }
     }

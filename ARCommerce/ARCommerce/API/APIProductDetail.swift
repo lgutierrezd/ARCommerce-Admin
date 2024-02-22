@@ -21,15 +21,33 @@ class APIProductDetail: NetworkRequestable {
         for configuration in listConfigurations {
             let images: [String] = configuration.images.compactMap { $0 }
             
+            var stocks: [[String: Any]] = []
+            
+            configuration.stock.forEach({
+                let stock: [String: Any] = [
+                    "location": $0.location._id,
+                    "quantity": $0.quantityText,
+                    "size": $0.size,
+                ]
+                stocks.append(stock)
+            })
+            
+            print("stocks", stocks)
+            
             let requestBody: [String: Any] = [
                 "price": configuration.price,
                 "productionPrice": configuration.productionPrice,
+                "discountPrice": configuration.discountPrice,
+                "type": configuration.type,
+                "size": configuration.size,
+                "weight": configuration.weight,
                 "colorHex": configuration.colorHex,
                 "productDescription": configuration.productDescription,
                 "isActive": configuration.isActive,
-                "images": images
+                "images": images,
+                "stock": stocks
             ]
-
+            print("requestBody", requestBody)
             mainBody["configs"]?.append(requestBody)
         }
         

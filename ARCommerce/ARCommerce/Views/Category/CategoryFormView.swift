@@ -28,21 +28,6 @@ struct CategoryFormView: View {
             NavigationLink(destination: SelectCategoriesView(selectedItems: $selectedChildsCategoryId, categories: pickerParentCategories)) {
                 Text("Select Childs")
             }
-            
-            
-//            Picker("Parent Category", selection: $selectedParentCategory) {
-//                Text("None").tag(nil as ARCommerce.CategoryV1?)
-//                ForEach(pickerParentCategories, id: \.self) { category in
-//                    Text(category.name).tag(category as ARCommerce.Category?)
-//                }
-//            }
-//            .onChange(of: selectedCategory ?? ARCommerce.CategoryV1() , { _,newValue in
-//                if let childs = pickerParentCategories.first(where: { $0._id == newValue.childs?.first?._id }) {
-//                    selectedParentCategory = childs
-//                } else {
-//                    selectedParentCategory = nil
-//                }
-//            })
         } header: {
             HStack {
                 if isUpdate {

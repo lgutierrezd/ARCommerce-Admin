@@ -102,6 +102,12 @@ struct MainMenu: View {
                     } else {
                         SeeAllSuppliersView()
                     }
+                case 6:
+                    if selectedItem.id == 0 {
+                        AddLocationView()
+                    } else {
+                        SeeAllLocationsView()
+                    }
                 case nil:
                     Text("None")
                 case .some(_):

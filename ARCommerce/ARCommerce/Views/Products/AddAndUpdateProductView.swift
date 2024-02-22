@@ -8,22 +8,26 @@
 import SwiftUI
 
 struct AddAndUpdateProductView: View {
+    @StateObject private var addAndUpdateProductViewModel = AddAndUpdateProductViewModel()
     @State var product: ProductV1?
-    
-    @State var listConfigurations = [ProductConfig]()
-    
     var isUpdate: Bool?
     
-    @State var name: String = ""
+    //VIEW
+    @State var showImagePicker = false
+    @State private var showAlertDeleteConfig = false
+    @State private var loading = false
+    @State private var showAlertAddProduct = false
+    @State private var alertText: String = ""
     
+    //ConfigurationProductDefinition
+    @State var name: String = ""
     @State var selectedBrand: Brand?
     @State var selectedCategories: Set<String> = []
-    @State var selectedSuppliers: Set<Supplier>? = []
+    @State var selectedSuppliers: Set<String> = []
+    @State var active: Bool = true
     
-    @State private var selectedImagesByConfiguration: [UIImage]?
-    @State var showImagePicker = false
-    
-    @State private var showAlertDeleteConfig = false
+    //ConfigurationProduct
+    //StockConfigureView
     @State private var selectedConfig: Int = -1 {
         didSet {
             if selectedConfig < 0 {
@@ -31,31 +35,29 @@ struct AddAndUpdateProductView: View {
             }
         }
     }
+    @State var listConfigurations = [ProductConfig]()
+    @State private var selectedType = "color" //ConfigurationProduct
     
-    @StateObject private var addAndUpdateProductViewModel = AddAndUpdateProductViewModel()
-    
-    @State private var showAlertAddProduct = false
-    @State private var alertText: String = ""
-    
-    @State private var loading = false
+    //ConfigurationProductImageView
+    @State private var selectedImagesByConfiguration: [UIImage]?
+
     var body: some View {
         NavigationStack {
             ZStack {
                 Form {
                     Section {
-                        ConfigurationNameBrandCategorySupplier(name: $name, selectedBrand: $selectedBrand, selectedCategories: $selectedCategories, selectedSuppliers: $selectedSuppliers)
+                        ConfigurationProductDefinition(name: $name, selectedBrand: $selectedBrand, selectedCategories: $selectedCategories, selectedSuppliers: $selectedSuppliers, active: $active)
                         
                     } header: {
                         Text("Product Definition")
                     }
                     
                     Section {
-                        ConfigurationProduct(selectedConfig: $selectedConfig, listConfigurations: $listConfigurations)
+                        ConfigurationProduct(selectedConfig: $selectedConfig, listConfigurations: $listConfigurations, selectedType: $selectedType)
                             .onChange(of: selectedConfig) { _,_ in
                                 if !listConfigurations.isEmpty {
                                     selectedImagesByConfiguration = listConfigurations[selectedConfig].uimages
                                 }
-                                
                             }
                     } header: {
                         HStack {
@@ -66,18 +68,12 @@ struct AddAndUpdateProductView: View {
                                     self.showAlertDeleteConfig = true
                                 }
                             } label: {
-                                Image(systemName: "minus.circle.fill")
+                                Image(systemName: "minus")
                             }
                             Button {
-                                let productConfig = ProductConfig(id: "", price: 0, productionPrice: 0, selectedColor: .blue, colorHex: "", images: [], uimages: [], productDescription: "", stock: [], isActive: true, extraConfig: [:])
-                                self.listConfigurations.append(productConfig)
-                                print("count \(listConfigurations.count)")
-                                
-                                if listConfigurations.count == 1 {
-                                    self.selectedConfig = 0
-                                }
+                                addConfiguration()
                             } label: {
-                                Image(systemName: "plus.circle.fill")
+                                Image(systemName: "plus")
                             }
                         }
                         .alert(isPresented: $showAlertDeleteConfig) {
@@ -102,13 +98,13 @@ struct AddAndUpdateProductView: View {
                                     selectedImagesByConfiguration = listConfigurations[selectedConfig].uimages
                                 }
                             } label: {
-                                Image(systemName: "minus.circle.fill")
+                                Image(systemName: "minus")
                             }
                             .disabled(disableAddImage())
                             Button(action: {
                                 showImagePicker = true
                             }, label: {
-                                Image(systemName: "plus.circle.fill")
+                                Image(systemName: "plus")
                             })
                             .disabled(disableAddImage())
                         }
@@ -191,7 +187,7 @@ struct AddAndUpdateProductView: View {
             return false
         }
         
-        if selectedSuppliers?.count ?? 0 < 1 {
+        if selectedSuppliers.count < 1 {
             return false
         }
         
@@ -210,12 +206,12 @@ struct AddAndUpdateProductView: View {
             do {
                 self.loading = true
                 if isValidAddProduct() {
-                    if let product = self.product, let brand = selectedBrand, let suppliers = selectedSuppliers  {
+                    if let product = self.product, let brand = selectedBrand {
                         product.name = name
                         product.brand = brand
                         product.categories = selectedCategories.compactMap({ Category(_id: $0, name: "")})
-                        product.suppliers = suppliers.compactMap({$0.id})
-                        product.isActive = true //falta componente para esto
+                        product.suppliers = selectedSuppliers.compactMap({$0})
+                        product.isActive = active //falta componente para esto
                         let _ = try await addAndUpdateProductViewModel.updateProduct(product: product)
                         try await addAndUpdateProductViewModel.updateConfigurations(product: product, listConfiguration: listConfigurations)
                     }
@@ -271,8 +267,8 @@ struct AddAndUpdateProductView: View {
     }
     
     private func addProductDefinition() async throws -> Product? {
-        if let brand = selectedBrand, let suppliers = selectedSuppliers  {
-           return try await addAndUpdateProductViewModel.addProduct(name: name, brand: brand, categories: selectedCategories, suppliers: suppliers)
+        if let brand = selectedBrand  {
+            return try await addAndUpdateProductViewModel.addProduct(name: name, brand: brand, categories: selectedCategories, suppliers: selectedSuppliers, active: active)
         }
         return nil
     }
@@ -297,6 +293,16 @@ struct AddAndUpdateProductView: View {
         self.selectedImagesByConfiguration?.removeAll()
         self.selectedConfig = 0
         self.loading = false
+    }
+    
+    private func addConfiguration() {
+        let productConfig = ProductConfig(id: "", price: 0, discountPrice: 0, productionPrice: 0, type: "", selectedColor: .blue, colorHex: "", size: "", weight: "", images: [], productDescription: "", stock: [] ,isActive: true)
+        
+        self.listConfigurations.append(productConfig)
+        
+        if listConfigurations.count == 1 {
+            self.selectedConfig = 0
+        }
     }
 }
 //

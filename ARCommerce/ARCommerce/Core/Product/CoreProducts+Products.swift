@@ -9,10 +9,10 @@ import Foundation
 import SwiftData
 
 extension CoreProducts {
-    func addProduct(name: String, brand: Brand, categories: Set<String>, suppliers: Set<Supplier>) async throws -> Product {
+    func addProduct(name: String, brand: Brand, categories: Set<String>, suppliers: Set<String>, active: Bool) async throws -> Product {
         do {
             let apiProducts = APIProducts()
-            return try await apiProducts.addProduct(name: name, brand: brand, categories: categories, suppliers: suppliers)
+            return try await apiProducts.addProduct(name: name, brand: brand, categories: categories, suppliers: suppliers, active: active)
         } catch {
             throw error
         }

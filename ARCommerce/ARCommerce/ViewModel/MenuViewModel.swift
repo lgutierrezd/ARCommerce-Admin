@@ -36,12 +36,17 @@ import Observation
                               MenuItem(id: 1, name: "See All Suppliers"),
         ]
         
+        let locationItems = [ MenuItem(id: 0, name: "Add Location"),
+                              MenuItem(id: 1, name: "See All Locations"),
+        ]
+        
         let topMenuItems = [ MenuItem(id: 0, name: "User", subMenuItems: userAccountItems),
                              MenuItem(id: 1, name: "Products", subMenuItems: productsItems),
                              MenuItem(id: 2, name: "Orders", subMenuItems: orderMenuItems),
                              MenuItem(id: 3, name: "Brands", subMenuItems: brandItems),
                              MenuItem(id: 4, name: "Categories", subMenuItems: categoryItems),
-                             MenuItem(id: 5, name: "Suppliers", subMenuItems: supplierItems)
+                             MenuItem(id: 5, name: "Suppliers", subMenuItems: supplierItems),
+                             MenuItem(id: 6, name: "Locations", subMenuItems: locationItems)
         ]
         return topMenuItems
     }()

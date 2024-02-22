@@ -8,18 +8,21 @@
 import SwiftUI
 import Combine
 
-struct ConfigurationProduct: View {    
-    @State private var isAddButtonEnabled = true
-    
+struct ConfigurationProduct: View {
     @Binding var selectedConfig: Int
     @Binding var listConfigurations: [ProductConfig]
-    @State var showImagePicker = false
+    @Binding var selectedType: String
     
-    @State var productDescription = ""
+    private var types = ["color", "size", "weight", "food"]
     
-    @State private var refreshID = UUID()
+    init(selectedConfig: Binding<Int>, listConfigurations: Binding<[ProductConfig]>, selectedType: Binding<String>) {
+         _selectedConfig = selectedConfig
+         _listConfigurations = listConfigurations
+         _selectedType = selectedType
+     }
+    
     var body: some View {
-        VStack {
+        List {
             Picker(selection: $selectedConfig, label: Text("Select a configuration")) {
                 ForEach(0..<listConfigurations.count, id: \.self) { id in
                     HStack {
@@ -33,44 +36,93 @@ struct ConfigurationProduct: View {
             .pickerStyle(MenuPickerStyle())
             
             if listConfigurations.count > 0 {
-                TextField("Description", text: $listConfigurations[selectedConfig].productDescription)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                TextField("Price", text: $listConfigurations[selectedConfig].priceText)
-                    .keyboardType(.numberPad)
-                    .onChange(of: listConfigurations[selectedConfig].priceText) { _,newInput in
-                        let filtered = newInput.filter { "0123456789.".contains($0) }
-                        if (Double(filtered) != nil) {
-                            listConfigurations[selectedConfig].price = Double(newInput) ?? 0
-                        }
+                Picker("Select Type", selection: $selectedType) {
+                    ForEach(types, id: \.self) { type in
+                        Text(type)
                     }
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                TextField("Cost Price", text: $listConfigurations[selectedConfig].productionPriceText)
-                    .keyboardType(.numberPad)
-                    .onChange(of: listConfigurations[selectedConfig].productionPriceText) { _,newInput in
-                        let filtered = newInput.filter { "0123456789.".contains($0) }
-                        if (Double(filtered) != nil) {
-                            listConfigurations[selectedConfig].productionPrice = Double(newInput) ?? 0
-                        }
-                    }
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                ColorPicker("Select a color", selection: $listConfigurations[selectedConfig].selectedColor)
-                    .onChange(of: listConfigurations[selectedConfig].selectedColor) { _,newValue in
-                        listConfigurations[selectedConfig].colorHex = newValue.toHex()
-                    }
-                    .padding()
-            }
-            
-            
-        }
-        .fullScreenCover(isPresented: $showImagePicker, onDismiss: nil) {
-            ImagePicker() { pickedImage in
-                if let image = pickedImage {
-                    listConfigurations[selectedConfig].uimages?.append(image)
-                    refreshID = UUID()
                 }
+                .pickerStyle(SegmentedPickerStyle())
+                switch selectedType {
+                case "color":
+                    ColorPicker("Select a color", selection: $listConfigurations[selectedConfig].selectedColor)
+                        .onChange(of: listConfigurations[selectedConfig].selectedColor) { _,newValue in
+                            listConfigurations[selectedConfig].colorHex = newValue.toHex()
+                        }
+                    
+                case "size":
+                    HStack {
+                        Text("Size:")
+                            .frame(width: 100)
+                        TextField("Size", text: $listConfigurations[selectedConfig].size)
+                    }
+                    
+                case "weight":
+                    HStack {
+                        Text("Weight:")
+                            .frame(width: 100)
+                        TextField("Weight", text: $listConfigurations[selectedConfig].weight)
+                    }
+                    
+                default:
+                    HStack {
+                        Text("Food:")
+                        Spacer()
+                    }
+                }
+                HStack {
+                    Text("Description:")
+                        .frame(width: 100)
+                    TextField("Description", text: $listConfigurations[selectedConfig].productDescription)
+                }
+                HStack {
+                    Text("Price:")
+                        .frame(width: 100)
+                    TextField("Price", text: $listConfigurations[selectedConfig].priceText)
+                        .keyboardType(.numberPad)
+                        .onChange(of: listConfigurations[selectedConfig].priceText) { _,newInput in
+                            let filtered = newInput.filter { "0123456789.".contains($0) }
+                            if (Double(filtered) != nil) {
+                                listConfigurations[selectedConfig].price = Double(newInput) ?? 0
+                            }
+                        }
+                    
+                }
+                HStack {
+                    Text("Discount:")
+                        .frame(width: 100)
+                    TextField("Discount Price", text: $listConfigurations[selectedConfig].discountPriceText)
+                        .keyboardType(.numberPad)
+                        .onChange(of: listConfigurations[selectedConfig].discountPriceText) { _,newInput in
+                            let filtered = newInput.filter { "0123456789.".contains($0) }
+                            if (Double(filtered) != nil) {
+                                listConfigurations[selectedConfig].discountPrice = Double(newInput) ?? 0
+                            }
+                        }
+                }
+                HStack {
+                    Text("Cost Price:")
+                        .frame(width: 100)
+                    TextField("Cost Price", text: $listConfigurations[selectedConfig].productionPriceText)
+                        .keyboardType(.numberPad)
+                        .onChange(of: listConfigurations[selectedConfig].productionPriceText) { _,newInput in
+                            let filtered = newInput.filter { "0123456789.".contains($0) }
+                            if (Double(filtered) != nil) {
+                                listConfigurations[selectedConfig].productionPrice = Double(newInput) ?? 0
+                            }
+                        }
+                }
+                NavigationLink(
+                    destination: {
+                        StockConfigureView(selectedConfig: $selectedConfig, listConfigurations: $listConfigurations)
+                    }, label: {
+                        Text("Set up Stocks")
+                    }
+                )
+            }
+        }
+        .onDisappear() {
+            if !listConfigurations.isEmpty {
+                listConfigurations[selectedConfig].type = selectedType
             }
         }
     }

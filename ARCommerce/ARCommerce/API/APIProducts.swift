@@ -8,20 +8,19 @@
 import Foundation
 
 class APIProducts: NetworkRequestable {
-    func addProduct(name: String, brand: Brand, categories: Set<String>, suppliers: Set<Supplier>) async throws -> Product {
+    func addProduct(name: String, brand: Brand, categories: Set<String>, suppliers: Set<String>, active: Bool) async throws -> Product {
         let urlString = "\(Self.baseURL)api/v1/products"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
         
-        let suppliers: [String] = suppliers.compactMap { $0.id }
         
         let requestBody: [String: Any] = [
             "name": name,
             "categories": categories.compactMap( {$0} ),
             "brand": brand.id,
-            "suppliers": suppliers,
-            "isActive": true,
+            "suppliers": suppliers.compactMap( {$0} ),
+            "isActive": active,
             "config": []
         ]
         

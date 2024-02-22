@@ -14,9 +14,9 @@ final class AddAndUpdateProductViewModel: ObservableObject {
         return try coreProducts.getInitialData()
     }
     
-    func addProduct(name: String, brand: Brand, categories: Set<String>, suppliers: Set<Supplier>) async throws -> Product {
+    func addProduct(name: String, brand: Brand, categories: Set<String>, suppliers: Set<String>, active: Bool) async throws -> Product {
         let coreProducts = CoreProducts()
-        return try await coreProducts.addProduct(name: name, brand: brand, categories: categories, suppliers: suppliers)
+        return try await coreProducts.addProduct(name: name, brand: brand, categories: categories, suppliers: suppliers, active: active)
     }
     
     func addConfigurations(product: ProductV1, listConfiguration: [ProductConfig]) async throws {
@@ -52,18 +52,24 @@ final class AddAndUpdateProductViewModel: ObservableObject {
                     loadedImages.append(img)
                 }
             }
-
-            productConfig.append(ProductConfig(
-                id: config._id,
-                price: config.price,
-                productionPrice: config.productionPrice,
-                selectedColor: Color(hex: config.colorHex),
-                colorHex: config.colorHex,
-                images: config.images,
-                uimages: loadedImages, 
-                productDescription: config.productDescription,
-                isActive: config.isActive
-            ))
+            
+            productConfig.append(
+                ProductConfig(
+                    id: config._id,
+                    price: config.price,
+                    discountPrice: config.discountPrice,
+                    productionPrice: config.productionPrice,
+                    type: config.type,
+                    selectedColor: Color(hex: config.colorHex),
+                    colorHex: config.colorHex,
+                    size: config.size,
+                    weight: config.weight,
+                    images: config.images,
+                    uimages: loadedImages,
+                    productDescription: config.productDescription,
+                    isActive: config.isActive
+                )
+            )
         }
 
         return productConfig

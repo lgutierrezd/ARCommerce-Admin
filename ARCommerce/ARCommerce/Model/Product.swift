@@ -51,34 +51,55 @@ class ProductDetail: Identifiable {
     }
 }
 
+class Stock: Codable, Hashable {
+    var location: Location
+    var quantity: Int
+    var quantityText: String = ""
+    var size: String
+    
+    init(location: Location, quantity: Int, size: String) {
+        self.location = location
+        self.quantity = quantity
+        self.size = size
+    }
+    
+    static func == (lhs: Stock, rhs: Stock) -> Bool {
+        return lhs.location == rhs.location && lhs.quantity == rhs.quantity && lhs.size == rhs.size
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(location)
+        hasher.combine(quantity)
+        hasher.combine(size)
+    }
+}
+
+
 class ProductConfig: Identifiable {
     var id: String
     var price: Double
     var priceText: String
+    var discountPrice: Double
+    var discountPriceText: String
     var productionPrice: Double
     var productionPriceText: String
+    var type: String
     var selectedColor: Color = .blue
     var colorHex: String
+    var size: String
+    var weight: String
     var images: [String]
     var uimages: [UIImage]?
     var productDescription: String
-    var stock: [Stock]?
+    var stock: [Stock]
     var isActive: Bool
     var extraConfig: Dictionary<String, String>?
-    class Stock: Codable {
-        
-        var location: String
-        var quantity: Int
-        
-        init(location: String, quantity: Int) {
-            self.location = location
-            self.quantity = quantity
-        }
-    }
     
-    init(id: String, price: Double, productionPrice: Double, selectedColor: Color, colorHex: String, images: [String], uimages: [UIImage]? = [], productDescription: String, stock: [Stock]? = [], isActive: Bool, extraConfig: Dictionary<String, String> = [:]) {
+    init(id: String, price: Double, discountPrice: Double, productionPrice: Double, type: String, selectedColor: Color, colorHex: String, size: String, weight: String, images: [String], uimages: [UIImage]? = [], productDescription: String, stock: [Stock] = [], isActive: Bool, extraConfig: Dictionary<String, String> = [:]) {
         self.id = id
         self.price = price
+        self.discountPrice = discountPrice
+        self.discountPriceText = String(discountPrice)
         self.productionPrice = productionPrice
         self.selectedColor = selectedColor
         self.colorHex = colorHex
@@ -90,6 +111,9 @@ class ProductConfig: Identifiable {
         self.extraConfig = extraConfig
         self.priceText = String(price)
         self.productionPriceText = String(productionPrice)
+        self.type = type
+        self.size = size
+        self.weight = weight
     }
 }
 
@@ -103,10 +127,14 @@ struct ProductConfigResult: Codable {
 struct Config: Codable {
     let _id: String
     let colorHex: String
+    let size: String
+    let weight: String
     let images: [String]
     let isActive: Bool
     let price: Double
+    let discountPrice: Double
     let productDescription: String
+    let type: String
     let productionPrice: Double
     let stock: [String]
     let config: [String]?
