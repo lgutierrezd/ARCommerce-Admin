@@ -26,7 +26,7 @@ final class ProductsModuleSeeAllProducts: XCTestCase {
     
     func testGetProductcConfiguration() async throws {
         let coreProducts = CoreProducts()
-        let configs = try await coreProducts.getProductcConfiguration(productId: "65c1b04ff5c6f56ba5597e95")
+        let configs = try await coreProducts.getProductcConfiguration(productId: "65daaf32b18a046d3f8b461e")
         XCTAssertTrue(configs.count > 1)
     }
 

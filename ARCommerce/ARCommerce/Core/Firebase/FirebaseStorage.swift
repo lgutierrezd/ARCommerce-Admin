@@ -34,6 +34,32 @@ class FirebaseStorage {
         }
     }
     
+    
+    public class func deleteFileFromFirebase(filePath: String) async {
+        let folderRef = Storage.storage().reference().child(filePath)
+        
+        do {
+            let listResult = try await folderRef.listAll()
+            
+            for item in listResult.items {
+                try await item.delete()
+            }
+            
+            // Eliminar todas las subcarpetas de manera recursiva
+            for prefix in listResult.prefixes {
+                await deleteFileFromFirebase(filePath: prefix.fullPath)
+            }
+            
+            // Finalmente, eliminar la carpeta principal
+            try await folderRef.delete()
+        } catch {
+            // Manejar errores
+            print("Error al eliminar la carpeta: \(error)")
+        }
+    }
+    
+    
+    
     public class func deleteImageFromStorage(path: String, name: String) async throws {
         let ref = Storage.storage().reference(withPath: "\(path)/\(name)")
 

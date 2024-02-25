@@ -9,7 +9,7 @@ import SwiftData
 
 @Model
 class Brand: Codable, Equatable, Hashable, Identifiable {
-    @Attribute(.unique) let id: String
+    @Attribute(.unique) var id: String
     var name: String
     
     init(id: String, name: String) {

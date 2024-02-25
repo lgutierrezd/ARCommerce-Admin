@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E27495D92B8B0D3D00AB971F /* Slug.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27495D82B8B0D3D00AB971F /* Slug.swift */; };
 		E27651BB2B8520B000B6261B /* AddLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27651BA2B8520B000B6261B /* AddLocationView.swift */; };
 		E27651BD2B8520C100B6261B /* SeeAllLocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27651BC2B8520C100B6261B /* SeeAllLocationsView.swift */; };
 		E27651BF2B8522A000B6261B /* APILocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E27651BE2B8522A000B6261B /* APILocation.swift */; };
@@ -41,6 +42,7 @@
 		E2A4705D2B73E809000C2C3D /* CategoryFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A4705C2B73E809000C2C3D /* CategoryFormView.swift */; };
 		E2A4A5FD2B858640003CE9A0 /* StockConfigureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A4A5FC2B858640003CE9A0 /* StockConfigureView.swift */; };
 		E2A4A5FF2B86BE9D003CE9A0 /* SelectBrandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A4A5FE2B86BE9D003CE9A0 /* SelectBrandView.swift */; };
+		E2A4A6012B87BB4F003CE9A0 /* Stock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2A4A6002B87BB4F003CE9A0 /* Stock.swift */; };
 		E2D21A752B349F8E00E8119E /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D21A742B349F8E00E8119E /* MenuViewModel.swift */; };
 		E2D21A772B34F54C00E8119E /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D21A762B34F54C00E8119E /* AppSettings.swift */; };
 		E2D21A7B2B3C7D2A00E8119E /* ModifyProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D21A7A2B3C7D2A00E8119E /* ModifyProductView.swift */; };
@@ -117,6 +119,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E27495D82B8B0D3D00AB971F /* Slug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Slug.swift; sourceTree = "<group>"; };
 		E27651BA2B8520B000B6261B /* AddLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocationView.swift; sourceTree = "<group>"; };
 		E27651BC2B8520C100B6261B /* SeeAllLocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllLocationsView.swift; sourceTree = "<group>"; };
 		E27651BE2B8522A000B6261B /* APILocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APILocation.swift; sourceTree = "<group>"; };
@@ -154,6 +157,7 @@
 		E2A4705C2B73E809000C2C3D /* CategoryFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryFormView.swift; sourceTree = "<group>"; };
 		E2A4A5FC2B858640003CE9A0 /* StockConfigureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockConfigureView.swift; sourceTree = "<group>"; };
 		E2A4A5FE2B86BE9D003CE9A0 /* SelectBrandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBrandView.swift; sourceTree = "<group>"; };
+		E2A4A6002B87BB4F003CE9A0 /* Stock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stock.swift; sourceTree = "<group>"; };
 		E2D21A742B349F8E00E8119E /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
 		E2D21A762B34F54C00E8119E /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
 		E2D21A7A2B3C7D2A00E8119E /* ModifyProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyProductView.swift; sourceTree = "<group>"; };
@@ -237,6 +241,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E27495D72B8B0D2A00AB971F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E27495D82B8B0D3D00AB971F /* Slug.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		E27651B92B85209100B6261B /* Locations */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,6 +410,7 @@
 		E281853D2B20F2890080E144 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				E27495D72B8B0D2A00AB971F /* Utils */,
 				E27651C22B8524A300B6261B /* Location */,
 				E2DCFF862B72A3BD00A120DA /* Category */,
 				E2DCFF7D2B7292C600A120DA /* Brand */,
@@ -440,6 +453,7 @@
 				E2D21A972B3E2B5A00E8119E /* Product.swift */,
 				E2F4C5A92B533FCC00C33075 /* Review.swift */,
 				E27651C02B8522DD00B6261B /* Location.swift */,
+				E2A4A6002B87BB4F003CE9A0 /* Stock.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -763,6 +777,7 @@
 			files = (
 				E2DCFF7C2B7290F600A120DA /* SeeAllBrandsView.swift in Sources */,
 				E2DCFF832B72984A00A120DA /* SeeAllBrandsViewModel.swift in Sources */,
+				E2A4A6012B87BB4F003CE9A0 /* Stock.swift in Sources */,
 				E2D3BB892B4CEC2E004DE1A9 /* FirebaseAuth.swift in Sources */,
 				E29B2A3A2B45D9FA009175B4 /* DatabaseFacade.swift in Sources */,
 				E2DCFF6F2B720C5400A120DA /* SeeAllSuppliersView.swift in Sources */,
@@ -787,6 +802,7 @@
 				E2DCFF582B6AAC7900A120DA /* CoreUser.swift in Sources */,
 				E2F4C5AE2B55A8E200C33075 /* ConfigurationProductDefinition.swift in Sources */,
 				E28185432B20F6690080E144 /* Network.swift in Sources */,
+				E27495D92B8B0D3D00AB971F /* Slug.swift in Sources */,
 				E2DCFF722B720D1E00A120DA /* SeeAllSuppliersViewModel.swift in Sources */,
 				E2D21A7B2B3C7D2A00E8119E /* ModifyProductView.swift in Sources */,
 				E2F4C5A62B533A4C00C33075 /* APIProductsSeeAll.swift in Sources */,

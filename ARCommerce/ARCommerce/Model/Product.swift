@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct Product: Identifiable, Codable, Equatable, Hashable {
-    let id: String
-    let name: String
-    let slug: String
-    let isActive: Bool
-    let categories: [String]
-    let brand: String
-    let suppliers: Array<String>
+    var id: String
+    var name: String
+    var slug: String
+    var isActive: Bool
+    var categories: [String]
+    var brand: String
+    var suppliers: [String]
 }
 
 class ProductV1: Codable {
@@ -51,31 +51,10 @@ class ProductDetail: Identifiable {
     }
 }
 
-class Stock: Codable, Hashable {
-    var location: Location
-    var quantity: Int
-    var quantityText: String = ""
-    var size: String
-    
-    init(location: Location, quantity: Int, size: String) {
-        self.location = location
-        self.quantity = quantity
-        self.size = size
-    }
-    
-    static func == (lhs: Stock, rhs: Stock) -> Bool {
-        return lhs.location == rhs.location && lhs.quantity == rhs.quantity && lhs.size == rhs.size
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(location)
-        hasher.combine(quantity)
-        hasher.combine(size)
-    }
-}
 
 
-class ProductConfig: Identifiable {
+
+struct ProductConfig: Identifiable {
     var id: String
     var price: Double
     var priceText: String
@@ -124,7 +103,7 @@ struct ProductConfigResult: Codable {
     let configs: [Config]
 }
 
-struct Config: Codable {
+class Config: Codable {
     let _id: String
     let colorHex: String
     let size: String
@@ -136,8 +115,25 @@ struct Config: Codable {
     let productDescription: String
     let type: String
     let productionPrice: Double
-    let stock: [String]
+    let stock: [StockV1]
     let config: [String]?
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self._id = try container.decode(String.self, forKey: ._id)
+        self.colorHex = try container.decode(String.self, forKey: .colorHex)
+        self.size = try container.decode(String.self, forKey: .size)
+        self.weight = try container.decode(String.self, forKey: .weight)
+        self.images = try container.decode([String].self, forKey: .images)
+        self.isActive = try container.decode(Bool.self, forKey: .isActive)
+        self.price = try container.decode(Double.self, forKey: .price)
+        self.discountPrice = try container.decode(Double?.self, forKey: .discountPrice) ?? 0
+        self.productDescription = try container.decode(String.self, forKey: .productDescription)
+        self.type = try container.decode(String.self, forKey: .type)
+        self.productionPrice = try container.decode(Double.self, forKey: .productionPrice)
+        self.stock = try container.decode([StockV1].self, forKey: .stock)
+        self.config = try container.decodeIfPresent([String].self, forKey: .config)
+    }
 }
 
 extension Color {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ConfigurationProductDefinition: View {
     @Binding var name: String
-    @Binding var selectedBrand: Brand?
+    @Binding var selectedBrand: Set<String>
     @Binding var selectedCategories: Set<String>
     @Binding var selectedSuppliers: Set<String>
     @Binding var active: Bool
@@ -44,6 +44,14 @@ struct ConfigurationProductDefinition: View {
             )
             
             Toggle("Active", isOn: $active)
+        }
+        .onAppear() {
+            do {
+                try globalDataManagerViewModel.getInitialData()
+            } catch {
+                
+            }
+            
         }
     }
     

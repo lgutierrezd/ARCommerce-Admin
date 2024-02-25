@@ -9,8 +9,8 @@ import SwiftUI
 
 struct AddAndUpdateProductView: View {
     @StateObject private var addAndUpdateProductViewModel = AddAndUpdateProductViewModel()
-    @State var product: ProductV1?
-    var isUpdate: Bool?
+    @State var product: Product
+    let isUpdate: Bool
     
     //VIEW
     @State var showImagePicker = false
@@ -21,7 +21,7 @@ struct AddAndUpdateProductView: View {
     
     //ConfigurationProductDefinition
     @State var name: String = ""
-    @State var selectedBrand: Brand?
+    @State var selectedBrand: Set<String> = []
     @State var selectedCategories: Set<String> = []
     @State var selectedSuppliers: Set<String> = []
     @State var active: Bool = true
@@ -47,17 +47,30 @@ struct AddAndUpdateProductView: View {
                 Form {
                     Section {
                         ConfigurationProductDefinition(name: $name, selectedBrand: $selectedBrand, selectedCategories: $selectedCategories, selectedSuppliers: $selectedSuppliers, active: $active)
+                            .onChange(of: name) { oldValue,newValue in
+                                if isUpdate {
+                                    self.loading = true
+                                    Task {
+                                        await FirebaseStorage.deleteFileFromFirebase(filePath: "\(product.slug)")
+                                        self.loading = false
+                                    }
+                                }
+                            }
                         
                     } header: {
                         Text("Product Definition")
                     }
                     
                     Section {
-                        ConfigurationProduct(selectedConfig: $selectedConfig, listConfigurations: $listConfigurations, selectedType: $selectedType)
+                        ConfigurationProduct(isUpdate: self.isUpdate, selectedConfig: $selectedConfig, listConfigurations: $listConfigurations, selectedType: $selectedType)
                             .onChange(of: selectedConfig) { _,_ in
                                 if !listConfigurations.isEmpty {
                                     selectedImagesByConfiguration = listConfigurations[selectedConfig].uimages
+                                    self.selectedType = self.listConfigurations[selectedConfig].type
                                 }
+                            }
+                            .onChange(of: selectedType) { _,newValue in
+                                self.listConfigurations[selectedConfig].type = newValue
                             }
                     } header: {
                         HStack {
@@ -93,9 +106,19 @@ struct AddAndUpdateProductView: View {
                             Text("Image Configuration")
                             Spacer()
                             Button {
+                                self.loading = true
                                 if listConfigurations[selectedConfig].uimages!.count > 0 {
                                     listConfigurations[selectedConfig].uimages?.removeLast()
+                                    listConfigurations[selectedConfig].images.removeLast()
                                     selectedImagesByConfiguration = listConfigurations[selectedConfig].uimages
+                                    let indexToDelete = listConfigurations[selectedConfig].images.count
+                                    if isUpdate {
+                                        Task {
+                                            await FirebaseStorage.deleteFileFromFirebase(filePath: "\(product.slug)/\(selectedConfig)/\(product.slug)-\(indexToDelete).jpg")
+                                            self.loading = false
+                                        }
+                                        
+                                    }
                                 }
                             } label: {
                                 Image(systemName: "minus")
@@ -130,10 +153,10 @@ struct AddAndUpdateProductView: View {
             }
         }
         
-        .navigationTitle(isUpdate ?? false ? "Update Product" :"Add Product")
+        .navigationTitle(isUpdate ? "Update Product" :"Add Product")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                if isUpdate ?? false {
+                if isUpdate {
                     Button {
                         updateProduct()
                         
@@ -155,21 +178,35 @@ struct AddAndUpdateProductView: View {
         .alert(isPresented: $showAlertAddProduct) {
             Alert(title: Text("Error"), message: Text(alertText))
         }
-        .onAppear() {
-            if isUpdate ?? false {
-                Task {
-                    loading = true
-                    do {
-                        self.listConfigurations = try await addAndUpdateProductViewModel.getConfigs(productId: self.product!.id)
-                        if self.listConfigurations.count > 0 {
-                            self.selectedConfig = 0
-                        }
-                    } catch {
-                        handleError(error)
-                        restartViewData()
+        .onAppear(perform: fetchData)
+    }
+    
+    @State private var hasFetchedData: Bool = false
+    
+    func fetchData() {
+        guard !hasFetchedData else { return }
+        
+        if isUpdate {
+            selectedBrand.insert( self.product.brand)
+            self.product.suppliers.forEach({ selectedSuppliers.insert($0) })
+            self.product.categories.forEach({ selectedCategories.insert($0) })
+            
+            Task {
+                loading = true
+                do {
+                    self.listConfigurations = try await addAndUpdateProductViewModel.getConfigs(productId: self.product.id)
+                    
+                    self.hasFetchedData = true
+                    self.name = self.product.name
+                    if self.listConfigurations.count > 0 {
+                        self.selectedConfig = 0
+                        self.selectedType = self.listConfigurations[selectedConfig].type
                     }
-                    loading = false
+                } catch {
+                    handleError(error)
+                    //restartViewData()
                 }
+                loading = false
             }
         }
     }
@@ -195,7 +232,7 @@ struct AddAndUpdateProductView: View {
             return false
         }
         
-        if selectedBrand == nil {
+        if selectedBrand.isEmpty {
             return false
         }
         return true
@@ -206,19 +243,20 @@ struct AddAndUpdateProductView: View {
             do {
                 self.loading = true
                 if isValidAddProduct() {
-                    if let product = self.product, let brand = selectedBrand {
-                        product.name = name
-                        product.brand = brand
-                        product.categories = selectedCategories.compactMap({ Category(_id: $0, name: "")})
-                        product.suppliers = selectedSuppliers.compactMap({$0})
-                        product.isActive = active //falta componente para esto
+                    if let brand = selectedBrand.first {
+                        self.product.name = name
+                        
+                        if let b = GlobalDataManagerViewModel.shared.brands.first(where: {$0.id == brand }) {
+                            self.product.brand = b.id
+                        }
+                        self.product.categories = selectedCategories.compactMap({ $0 })
+                        self.product.suppliers = selectedSuppliers.compactMap({$0})
+                        self.product.isActive = active //falta componente para esto
+                        self.product.slug = createSlug(from: name)
                         let _ = try await addAndUpdateProductViewModel.updateProduct(product: product)
-                        try await addAndUpdateProductViewModel.updateConfigurations(product: product, listConfiguration: listConfigurations)
-                    }
-                    Task {
+                        try await addAndUpdateProductViewModel.updateConfigurations(product: self.product, listConfiguration: listConfigurations)
                         restartViewData()
                     }
-                    
                 }
             } catch {
                 handleError(error)
@@ -244,7 +282,7 @@ struct AddAndUpdateProductView: View {
             }
             
         } else {
-            print(error.localizedDescription)
+            //print(error.localizedDescription)
         }
         self.loading = false
     }
@@ -255,7 +293,7 @@ struct AddAndUpdateProductView: View {
                 self.loading = true
                 if isValidAddProduct() {
                     if let product = try await addProductDefinition() {
-                        try await addConfigurations(product: ProductV1(_id: product.id, id: product.id, isActive: product.isActive, name: product.name, slug: product.slug))
+                        try await addConfigurations(product: product)
                     }
                     restartViewData()
                 }
@@ -267,13 +305,13 @@ struct AddAndUpdateProductView: View {
     }
     
     private func addProductDefinition() async throws -> Product? {
-        if let brand = selectedBrand  {
+        if let brand = selectedBrand.first  {
             return try await addAndUpdateProductViewModel.addProduct(name: name, brand: brand, categories: selectedCategories, suppliers: selectedSuppliers, active: active)
         }
         return nil
     }
     
-    private func addConfigurations(product: ProductV1) async throws {
+    private func addConfigurations(product: Product) async throws {
         try await addAndUpdateProductViewModel.addConfigurations(product: product, listConfiguration: listConfigurations)
     }
     
@@ -282,21 +320,24 @@ struct AddAndUpdateProductView: View {
     }
     
     private func restartViewData() {
-        self.product = nil
-        self.listConfigurations.removeAll()
+        self.product = Product(id: "", name: "", slug: "", isActive: true, categories: [], brand: "", suppliers: [])
         
         self.name = ""
-        //        self.selectedBrand: Brand?
-        //        self.selectedCategory: ARCommerce.Category?
-        //        self.selectedSuppliers: Set<Supplier>? = []
+        self.active = true
+        self.selectedBrand.removeAll()
+        self.selectedSuppliers.removeAll()
+        self.selectedCategories.removeAll()
+        
+        self.selectedConfig = 0
+        self.listConfigurations.removeAll()
         
         self.selectedImagesByConfiguration?.removeAll()
-        self.selectedConfig = 0
+        
         self.loading = false
     }
     
     private func addConfiguration() {
-        let productConfig = ProductConfig(id: "", price: 0, discountPrice: 0, productionPrice: 0, type: "", selectedColor: .blue, colorHex: "", size: "", weight: "", images: [], productDescription: "", stock: [] ,isActive: true)
+        let productConfig = ProductConfig(id: "", price: 0, discountPrice: 0, productionPrice: 0, type: "", selectedColor: .white, colorHex: "#ffffff", size: "", weight: "", images: [], productDescription: "", stock: [] ,isActive: true)
         
         self.listConfigurations.append(productConfig)
         
@@ -305,7 +346,3 @@ struct AddAndUpdateProductView: View {
         }
     }
 }
-//
-//#Preview {
-//    AddAndUpdateProductView(isUpdate: false)
-//}

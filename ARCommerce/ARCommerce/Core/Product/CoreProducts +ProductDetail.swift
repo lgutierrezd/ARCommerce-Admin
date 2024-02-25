@@ -8,36 +8,39 @@
 import Foundation
 
 extension CoreProducts {
-    func addConfigurations(product: ProductV1, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
-        let newConfigs = try await saveConfigurationImagesFirebase(product: product, listConfigurations: listConfigurations)
+    func addConfigurations(product: Product, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
+        let newConfigs = try await saveConfigurationImagesFirebase(slug: product.slug, listConfigurations: listConfigurations)
         
         let apiProductConfig = APIProductDetail()
-        let productDetail = try await apiProductConfig.addConfigurations(product: product, listConfigurations: newConfigs)
+        let productDetail = try await apiProductConfig.addConfigurations(productId: product.id, listConfigurations: newConfigs)
         return productDetail
     }
 
-    func updateConfigurations(product: ProductV1, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
-        let newConfigs = try await saveConfigurationImagesFirebase(product: product, listConfigurations: listConfigurations)
+    func updateConfigurations(product: Product, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
+        let newConfigs = try await saveConfigurationImagesFirebase(slug: product.slug, listConfigurations: listConfigurations)
         
         let apiProductConfig = APIProductDetail()
-        let productDetail = try await apiProductConfig.updateConfigurations(product: product, listConfigurations: newConfigs)
+        let productDetail = try await apiProductConfig.updateConfigurations(productId: product.id, listConfigurations: newConfigs)
         return productDetail
     }
     
-    func saveConfigurationImagesFirebase(product: ProductV1, listConfigurations: [ProductConfig]) async throws -> [ProductConfig] {
+    func saveConfigurationImagesFirebase(slug: String, listConfigurations: [ProductConfig]) async throws -> [ProductConfig] {
         do {
+            var newList = listConfigurations
+            
             for (indexConfig, config) in listConfigurations.enumerated() {
+                newList[indexConfig].images.removeAll()
                 if let uimages = config.uimages {
                     for (index, image) in uimages.enumerated() {
-                        let path = "\(product.slug)/\(indexConfig)"
-                        let name = "\(product.slug)-\(index).jpg"
+                        let path = "\(slug)/\(indexConfig)"
+                        let name = "\(slug)-\(index).jpg"
                         if let urlDownload = try await FirebaseStorage.persistImageToStorage(path: path, name: name, image: image) {
-                            listConfigurations[indexConfig].images.append(urlDownload)
+                            newList[indexConfig].images.append(urlDownload)
                         }
                     }
                 }
             }
-            return listConfigurations
+            return newList
         } catch {
             throw error
         }

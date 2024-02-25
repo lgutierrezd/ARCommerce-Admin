@@ -9,13 +9,15 @@ import SwiftUI
 import Combine
 
 struct ConfigurationProduct: View {
+    let isUpdate: Bool
     @Binding var selectedConfig: Int
     @Binding var listConfigurations: [ProductConfig]
     @Binding var selectedType: String
     
     private var types = ["color", "size", "weight", "food"]
     
-    init(selectedConfig: Binding<Int>, listConfigurations: Binding<[ProductConfig]>, selectedType: Binding<String>) {
+    init(isUpdate: Bool, selectedConfig: Binding<Int>, listConfigurations: Binding<[ProductConfig]>, selectedType: Binding<String>) {
+        self.isUpdate = isUpdate
          _selectedConfig = selectedConfig
          _listConfigurations = listConfigurations
          _selectedType = selectedType
@@ -113,7 +115,7 @@ struct ConfigurationProduct: View {
                 }
                 NavigationLink(
                     destination: {
-                        StockConfigureView(selectedConfig: $selectedConfig, listConfigurations: $listConfigurations)
+                        StockConfigureView(isUpdate: self.isUpdate, selectedConfig: $selectedConfig, listConfigurations: $listConfigurations)
                     }, label: {
                         Text("Set up Stocks")
                     }

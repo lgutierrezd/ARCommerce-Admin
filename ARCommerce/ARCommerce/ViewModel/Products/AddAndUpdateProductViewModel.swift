@@ -14,27 +14,28 @@ final class AddAndUpdateProductViewModel: ObservableObject {
         return try coreProducts.getInitialData()
     }
     
-    func addProduct(name: String, brand: Brand, categories: Set<String>, suppliers: Set<String>, active: Bool) async throws -> Product {
+    func addProduct(name: String, brand: String, categories: Set<String>, suppliers: Set<String>, active: Bool) async throws -> Product {
         let coreProducts = CoreProducts()
-        return try await coreProducts.addProduct(name: name, brand: brand, categories: categories, suppliers: suppliers, active: active)
+        let product = Product(id: "", name: name, slug: "", isActive: active, categories: Array(categories), brand: brand, suppliers: Array(suppliers))
+        return try await coreProducts.addProduct(product: product)
     }
     
-    func addConfigurations(product: ProductV1, listConfiguration: [ProductConfig]) async throws {
+    func addConfigurations(product: Product, listConfiguration: [ProductConfig]) async throws {
         let coreProducts = CoreProducts()
         let _ = try await coreProducts.addConfigurations(product: product, listConfigurations: listConfiguration)
     }
     
-    func updateProduct(product: ProductV1) async throws -> Product {
+    func updateProduct(product: Product) async throws -> Product {
         let coreProducts = CoreProducts()
         return try await coreProducts.updateProduct(product: product)
     }
     
-    func updateConfigurations(product: ProductV1, listConfiguration: [ProductConfig]) async throws {
+    func updateConfigurations(product: Product, listConfiguration: [ProductConfig]) async throws {
         let coreProducts = CoreProducts()
         let _ = try await coreProducts.updateConfigurations(product: product, listConfigurations: listConfiguration)
     }
     
-    func modifyProduct(product: ProductV1, listConfiguration: [ProductConfig]) async throws {
+    func modifyProduct(product: Product, listConfiguration: [ProductConfig]) async throws {
         let coreProducts = CoreProducts()
         let _ = try await coreProducts.addConfigurations(product: product, listConfigurations: listConfiguration)
     }
@@ -67,6 +68,7 @@ final class AddAndUpdateProductViewModel: ObservableObject {
                     images: config.images,
                     uimages: loadedImages,
                     productDescription: config.productDescription,
+                    stock: config.stock.map({ Stock(location: Location(_id: $0.location, locationName: "", lat: "", lon: ""), quantity: $0.quantity, size: $0.size) }), 
                     isActive: config.isActive
                 )
             )

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct StockConfigureView: View {
+    let isUpdate: Bool
     @State private var uuid = UUID()
     @State private var stocks: [Stock] = []
     @State private var locations: [Location] = []
@@ -18,7 +19,8 @@ struct StockConfigureView: View {
     
     @StateObject var seeAllLocationsViewModel = SeeAllLocationsViewModel()
     
-    init(selectedConfig: Binding<Int>, listConfigurations: Binding<[ProductConfig]>) {
+    init(isUpdate: Bool, selectedConfig: Binding<Int>, listConfigurations: Binding<[ProductConfig]>) {
+        self.isUpdate = isUpdate
         _selectedConfig = selectedConfig
         _listConfigurations = listConfigurations
     }
@@ -26,7 +28,7 @@ struct StockConfigureView: View {
     var body: some View {
         List {
             Section {
-                if numberOfStocks > 0  {
+                if numberOfStocks > 0 && !locations.isEmpty  {
                     ForEach(0..<numberOfStocks, id: \.self) { index in
                         VStack {
                             HStack {
@@ -75,9 +77,10 @@ struct StockConfigureView: View {
                     }
                     .disabled(numberOfStocks < 1)
                     Button {
-                        //self.listConfigurations[selectedConfig].stock.append(Stock(location: Location(_id: "", locationName: "", lat: "", lon: ""), quantity: 0, size: ""))
-                        stocks.append(Stock(location: Location(_id: "", locationName: "", lat: "", lon: ""), quantity: 0, size: ""))
-                        locations.append(Location(_id: "", locationName: "", lat: "", lon: ""))
+                        if let location = seeAllLocationsViewModel.locations.first {
+                            stocks.append(Stock(location: location, quantity: 0, size: ""))
+                            locations.append(location)
+                        }
                         numberOfStocks += 1
                         uuid = UUID()
                     } label: {
@@ -91,19 +94,23 @@ struct StockConfigureView: View {
             Task {
                 do {
                     try await seeAllLocationsViewModel.getAllLocations()
+                    self.locations.removeAll()
+                    self.stocks.removeAll()
+                    
+                    for stock in listConfigurations[selectedConfig].stock {
+                        self.stocks.append(stock)
+                        if let location = seeAllLocationsViewModel.locations.first(where: {$0._id == stock.location._id }) {
+                            self.locations.append(location)
+                        }
+                    }
+                    uuid = UUID()
+                    numberOfStocks = self.stocks.count
                 } catch {
                     
                 }
             }
             
-            self.locations = []
-            self.stocks = []
             
-            for stock in listConfigurations[selectedConfig].stock {
-                self.stocks.append(stock)
-                self.locations.append(stock.location)
-            }
-            numberOfStocks = self.stocks.count
         }
         .onDisappear() {
             for (index, location) in locations.enumerated() {

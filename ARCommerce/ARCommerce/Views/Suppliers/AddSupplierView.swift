@@ -73,7 +73,7 @@ struct AddSupplierView: View {
             }
             
         } else {
-            print(error.localizedDescription)
+//            print(error.localizedDescription)
         }
         self.loading = false
     }

@@ -72,7 +72,7 @@ struct MainMenu: View {
                     }
                 case 1:
                     if selectedItem.id == 0 {
-                        AddAndUpdateProductView(isUpdate: false, selectedCategories: Set<String>())
+                        AddAndUpdateProductView(product: Product(id: "", name: "", slug: "", isActive: true, categories: [], brand: "", suppliers: []), isUpdate: false, selectedCategories: Set<String>())
                     } else if selectedItem.id == 1 {
                         ModifyProductView()
                     } else {

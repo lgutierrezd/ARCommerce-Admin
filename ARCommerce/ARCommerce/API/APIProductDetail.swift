@@ -8,8 +8,8 @@
 import Foundation
 
 class APIProductDetail: NetworkRequestable {
-    func addConfigurations(product: ProductV1, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
-        let urlString = "\(Self.baseURL)api/v1/products/config/\(product.id)"
+    func addConfigurations(productId: String, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
+        let urlString = "\(Self.baseURL)api/v1/products/config/\(productId)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -26,13 +26,11 @@ class APIProductDetail: NetworkRequestable {
             configuration.stock.forEach({
                 let stock: [String: Any] = [
                     "location": $0.location._id,
-                    "quantity": $0.quantityText,
+                    "quantity": Int($0.quantityText) ?? 0,
                     "size": $0.size,
                 ]
                 stocks.append(stock)
             })
-            
-            print("stocks", stocks)
             
             let requestBody: [String: Any] = [
                 "price": configuration.price,
@@ -47,12 +45,9 @@ class APIProductDetail: NetworkRequestable {
                 "images": images,
                 "stock": stocks
             ]
-            print("requestBody", requestBody)
             mainBody["configs"]?.append(requestBody)
         }
-        
-        
-        
+        print("mainBody", mainBody)
         let bodyData = try JSONSerialization.data(withJSONObject: mainBody)
         let request = APIRequest(url: url, method: .post, body: bodyData)
         
@@ -115,8 +110,8 @@ class APIProductDetail: NetworkRequestable {
         }
     }
     
-    func updateConfigurations(product: ProductV1, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
-        let urlString = "\(Self.baseURL)api/v1/products/config/\(product.id)"
+    func updateConfigurations(productId: String, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {
+        let urlString = "\(Self.baseURL)api/v1/products/config/\(productId)"
         guard let url = URL(string: urlString) else {
             throw NetworkError.invalidURL
         }
@@ -128,19 +123,33 @@ class APIProductDetail: NetworkRequestable {
         for configuration in listConfigurations {
             let images: [String] = configuration.images.compactMap { $0 }
             
+            var stocks: [[String: Any]] = []
+            
+            configuration.stock.forEach({
+                let stock: [String: Any] = [
+                    "location": $0.location._id,
+                    "quantity": $0.quantityText,
+                    "size": $0.size,
+                ]
+                stocks.append(stock)
+            })
+            
             let requestBody: [String: Any] = [
                 "price": configuration.price,
                 "productionPrice": configuration.productionPrice,
+                "discountPrice": configuration.discountPrice,
+                "type": configuration.type,
+                "size": configuration.size,
+                "weight": configuration.weight,
                 "colorHex": configuration.colorHex,
                 "productDescription": configuration.productDescription,
                 "isActive": configuration.isActive,
-                "images": images
+                "images": images,
+                "stock": stocks
             ]
 
             mainBody["configs"]?.append(requestBody)
         }
-        
-        
         
         let bodyData = try JSONSerialization.data(withJSONObject: mainBody)
         let request = APIRequest(url: url, method: .patch, body: bodyData)

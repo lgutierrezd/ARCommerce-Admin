@@ -141,14 +141,7 @@ class APICategories: NetworkRequestable {
         
         
         let bodyData = try JSONSerialization.data(withJSONObject: requestBody)
-
-        if let jsonString = String(data: bodyData, encoding: .utf8) {
-            print(jsonString)
-        } else {
-            print("No se pudo convertir los datos JSON en una cadena")
-        }
-        
-        
+  
         let request = APIRequest(url: url, method: .post, body: bodyData)
         
         do {
@@ -215,13 +208,6 @@ class APICategories: NetworkRequestable {
         
         
         let bodyData = try JSONSerialization.data(withJSONObject: requestBody)
-
-        if let jsonString = String(data: bodyData, encoding: .utf8) {
-            print(jsonString)
-        } else {
-            print("No se pudo convertir los datos JSON en una cadena")
-        }
-        
         
         let request = APIRequest(url: url, method: .patch, body: bodyData)
         

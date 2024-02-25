@@ -10,10 +10,22 @@ import SwiftUI
 struct SelectCategoriesView: View {
     @Binding var selectedItems: Set<String>
     let categories: [ARCommerce.Category]
+    @State var searchText: String = ""
+    @State var categoriesFiltered: [ARCommerce.Category] = []
     
     var body: some View {
         List {
-            ForEach(categories) { category in
+            TextField("Search Category", text: $searchText)
+                .onChange(of: searchText) { _, newValue in
+                    let regexPattern = "(?i)\(newValue)"
+                    let regex = try! NSRegularExpression(pattern: regexPattern)
+                    categoriesFiltered = categories.filter { category in
+                        let name = category.name
+                        let range = NSRange(location: 0, length: name.utf16.count)
+                        return regex.firstMatch(in: name, options: [], range: range) != nil
+                    }.filter({ $0.childs?.isEmpty ?? false }).sorted { $0.name < $1.name }
+                }
+            ForEach(categoriesFiltered) { category in
                 SelectRow(
                     title: category.name,
                     isSelected: self.selectedItems.contains(category._id),
@@ -25,6 +37,9 @@ struct SelectCategoriesView: View {
                         }
                     })
             }
+        }
+        .onAppear() {
+            categoriesFiltered = categories.filter({ $0.childs?.isEmpty ?? false }).sorted { $0.name < $1.name }
         }
     }
 }
