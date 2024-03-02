@@ -91,11 +91,13 @@ struct StockConfigureView: View {
             }
         }.id(uuid)
         .onAppear() {
+            self.locations.removeAll()
+            self.stocks.removeAll()
+            numberOfStocks = 0
             Task {
                 do {
                     try await seeAllLocationsViewModel.getAllLocations()
-                    self.locations.removeAll()
-                    self.stocks.removeAll()
+                    
                     
                     for stock in listConfigurations[selectedConfig].stock {
                         self.stocks.append(stock)
@@ -118,10 +120,6 @@ struct StockConfigureView: View {
             }
             
             listConfigurations[selectedConfig].stock = self.stocks
-            
-            self.locations = []
-            self.stocks = []
-            numberOfStocks = 0
         }
     }
 }

@@ -49,14 +49,11 @@ struct AddAndUpdateProductView: View {
                         ConfigurationProductDefinition(name: $name, selectedBrand: $selectedBrand, selectedCategories: $selectedCategories, selectedSuppliers: $selectedSuppliers, active: $active)
                             .onChange(of: name) { oldValue,newValue in
                                 if isUpdate {
-                                    self.loading = true
                                     Task {
                                         await FirebaseStorage.deleteFileFromFirebase(filePath: "\(product.slug)")
-                                        self.loading = false
                                     }
                                 }
                             }
-                        
                     } header: {
                         Text("Product Definition")
                     }
@@ -142,6 +139,7 @@ struct AddAndUpdateProductView: View {
                         }
                     }
                 }
+                .disabled(loading ? true: false)
                 
                 if loading {
                     VStack {
@@ -152,8 +150,8 @@ struct AddAndUpdateProductView: View {
                 }
             }
         }
-        
         .navigationTitle(isUpdate ? "Update Product" :"Add Product")
+        .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 if isUpdate {
@@ -195,8 +193,19 @@ struct AddAndUpdateProductView: View {
                 loading = true
                 do {
                     self.listConfigurations = try await addAndUpdateProductViewModel.getConfigs(productId: self.product.id)
-                    
-                    self.hasFetchedData = true
+                    let cancellable = self.listConfigurations.publisher.sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            print("El flujo de configuraciones ha completado.")
+                            self.hasFetchedData = true
+                        case .failure(let error):
+                            print("Se produjo un error al recibir las configuraciones: \(error)")
+                        }
+                    }, receiveValue: { config in
+                        
+                    })
+                    cancellable.cancel()
+//                    self.hasFetchedData = true
                     self.name = self.product.name
                     if self.listConfigurations.count > 0 {
                         self.selectedConfig = 0

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension CoreProducts {
     func addConfigurations(product: Product, listConfigurations: [ProductConfig]) async throws -> ProductConfigResult {

@@ -175,129 +175,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "972152B8-D4C7-47EC-B647-DA6E9AD85913"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ARCommerce/API/APIProductsSeeAll.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "17"
-            endingLineNumber = "17"
-            landmarkName = "getAllProducts(page:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "972152B8-D4C7-47EC-B647-DA6E9AD85913 - 3bf612a5ebc813d6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "34">
-               </Location>
-               <Location
-                  uuid = "972152B8-D4C7-47EC-B647-DA6E9AD85913 - b24b51730ac63205"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "33">
-               </Location>
-               <Location
-                  uuid = "972152B8-D4C7-47EC-B647-DA6E9AD85913 - b24b51730ac63205"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "698">
-               </Location>
-               <Location
-                  uuid = "972152B8-D4C7-47EC-B647-DA6E9AD85913 - 92581d6ea3fbf06"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  uuid = "972152B8-D4C7-47EC-B647-DA6E9AD85913 - 6368eb25d56cf603"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "33">
-               </Location>
-               <Location
-                  uuid = "972152B8-D4C7-47EC-B647-DA6E9AD85913 - ccf829ce82d81402"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "33">
-               </Location>
-               <Location
-                  uuid = "972152B8-D4C7-47EC-B647-DA6E9AD85913 - b24b51730ac63205"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "875">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B816E0A9-4B60-4D64-AB9A-14B946D998D8"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -337,8 +214,8 @@
             filePath = "ARCommerce/Views/Products/AddAndUpdateProductView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -353,8 +230,8 @@
             filePath = "ARCommerce/Views/Products/AddAndUpdateProductView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -474,22 +351,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B81F6145-8D3A-4E85-A640-004D2E277092"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ARCommerce/Views/Products/ConfigurationProductDefinition.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "7663976A-C6C6-44C4-B16B-F9C6C647F3F7"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -538,129 +399,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "41C57476-AC80-47E1-8559-6650FC6892E7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ARCommerce/API/APIProductDetail.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
-            landmarkName = "addConfigurations(productId:listConfigurations:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "41C57476-AC80-47E1-8559-6650FC6892E7 - c43206bf5c8fe409"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for ARCommerce.APIProductDetail.addConfigurations(product: ARCommerce.ProductV1, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductDetail.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "4515">
-               </Location>
-               <Location
-                  uuid = "41C57476-AC80-47E1-8559-6650FC6892E7 - f6c2f7b719204e09"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for ARCommerce.APIProductDetail.addConfigurations(product: ARCommerce.ProductV1, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductDetail.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "23">
-               </Location>
-               <Location
-                  uuid = "41C57476-AC80-47E1-8559-6650FC6892E7 - f6c2f7b719204e6a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for ARCommerce.APIProductDetail.addConfigurations(product: ARCommerce.ProductV1, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductDetail.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "67">
-               </Location>
-               <Location
-                  uuid = "41C57476-AC80-47E1-8559-6650FC6892E7 - c76f535a86e9206c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for ARCommerce.APIProductDetail.addConfigurations(product: ARCommerce.ProductV1, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductDetail.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "34">
-               </Location>
-               <Location
-                  uuid = "41C57476-AC80-47E1-8559-6650FC6892E7 - c76f535a86e9200f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for ARCommerce.APIProductDetail.addConfigurations(product: ARCommerce.ProductV1, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductDetail.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "440">
-               </Location>
-               <Location
-                  uuid = "41C57476-AC80-47E1-8559-6650FC6892E7 - 47f605c49bf5de6d"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for ARCommerce.APIProductDetail.addConfigurations(product: ARCommerce.ProductV1, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductDetail.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "33">
-               </Location>
-               <Location
-                  uuid = "41C57476-AC80-47E1-8559-6650FC6892E7 - 47f605c49bf5de0e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for ARCommerce.APIProductDetail.addConfigurations(product: ARCommerce.ProductV1, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductDetail.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "159">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "3447E1C3-EAB9-47D8-A374-44A86B25687F"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -700,8 +438,8 @@
             filePath = "ARCommerce/Views/Products/AddAndUpdateProductView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
             landmarkName = "fetchData()"
             landmarkType = "7">
             <Locations>
@@ -833,250 +571,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "335A2A0D-0523-4C53-8E74-6E8D941FB3F3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ARCommerce/API/APIProductsSeeAll.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "getAllProducts(page:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "335A2A0D-0523-4C53-8E74-6E8D941FB3F3 - b24b51730ac632a8"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20"
-                  offsetFromSymbolStart = "945">
-               </Location>
-               <Location
-                  uuid = "335A2A0D-0523-4C53-8E74-6E8D941FB3F3 - 92581d6ea3fbf06"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  uuid = "335A2A0D-0523-4C53-8E74-6E8D941FB3F3 - 92581d6ea3fbfab"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(2) await resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20"
-                  offsetFromSymbolStart = "61">
-               </Location>
-               <Location
-                  uuid = "335A2A0D-0523-4C53-8E74-6E8D941FB3F3 - 6368eb25d56cf603"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "33">
-               </Location>
-               <Location
-                  uuid = "335A2A0D-0523-4C53-8E74-6E8D941FB3F3 - 6368eb25d56cf6ae"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20"
-                  offsetFromSymbolStart = "393">
-               </Location>
-               <Location
-                  uuid = "335A2A0D-0523-4C53-8E74-6E8D941FB3F3 - ccf829ce82d81402"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "17"
-                  endingLineNumber = "17"
-                  offsetFromSymbolStart = "33">
-               </Location>
-               <Location
-                  uuid = "335A2A0D-0523-4C53-8E74-6E8D941FB3F3 - ccf829ce82d814af"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "20"
-                  endingLineNumber = "20"
-                  offsetFromSymbolStart = "102">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2A0E2D52-0EC5-4B75-9F67-20CAD6C9F89D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ARCommerce/API/APIProductsSeeAll.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "getAllProducts(page:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2A0E2D52-0EC5-4B75-9F67-20CAD6C9F89D - 6368eb25d56c8939"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "2422">
-               </Location>
-               <Location
-                  uuid = "2A0E2D52-0EC5-4B75-9F67-20CAD6C9F89D - 6368eb25d56c8939"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for ARCommerce.APIProductsSeeAll.getAllProducts(page: Swift.Int) async throws -&gt; Swift.Array&lt;ARCommerce.ProductV1&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/API/APIProductsSeeAll.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "2590">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4C79BBEB-9653-45E1-AED5-2AD7E44D0DC9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ARCommerce/API/APIProductDetail.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "addConfigurations(productId:listConfigurations:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "428A6092-6273-4BDD-96D6-30584347796D"
+            uuid = "604A0E71-8C13-430A-86D2-A055C848FFC9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ARCommerce/Core/Product/CoreProducts +ProductDetail.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "saveConfigurationImagesFirebase(slug:listConfigurations:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "428A6092-6273-4BDD-96D6-30584347796D - c0a2edd808839e8f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for ARCommerce.CoreProducts.saveConfigurationImagesFirebase(slug: Swift.String, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; Swift.Array&lt;ARCommerce.ProductConfig&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Core/Product/CoreProducts%20+ProductDetail.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "45"
-                  endingLineNumber = "45"
-                  offsetFromSymbolStart = "833">
-               </Location>
-               <Location
-                  uuid = "428A6092-6273-4BDD-96D6-30584347796D - c0a2edd808839e8f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for ARCommerce.CoreProducts.saveConfigurationImagesFirebase(slug: Swift.String, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; Swift.Array&lt;ARCommerce.ProductConfig&gt;"
-                  moduleName = "ARCommerce"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Core/Product/CoreProducts%20+ProductDetail.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "45"
-                  endingLineNumber = "45"
-                  offsetFromSymbolStart = "860">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "604A0E71-8C13-430A-86D2-A055C848FFC9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ARCommerce/Core/Product/CoreProducts +ProductDetail.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
             landmarkName = "updateConfigurations(product:listConfigurations:)"
             landmarkType = "7">
             <Locations>
@@ -1140,53 +643,65 @@
                   endingLineNumber = "23"
                   offsetFromSymbolStart = "72">
                </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "54C22CBE-544C-4B27-978A-2B47EE7273F6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ARCommerce/Views/Products/AddAndUpdateProductView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
-            landmarkName = "fetchData()"
-            landmarkType = "7">
-            <Locations>
                <Location
-                  uuid = "54C22CBE-544C-4B27-978A-2B47EE7273F6 - b588e8b803b27060"
+                  uuid = "604A0E71-8C13-430A-86D2-A055C848FFC9 - ff27bbae0e245bda"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #3 @Sendable () async -&gt; () in ARCommerce.AddAndUpdateProductView.fetchData() -&gt; ()"
+                  symbolName = "(3) suspend resume partial function for ARCommerce.CoreProducts.updateConfigurations(product: ARCommerce.Product, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
                   moduleName = "ARCommerce"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Views/Products/AddAndUpdateProductView.swift"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Core/Product/CoreProducts%20+ProductDetail.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "175"
-                  endingLineNumber = "175"
-                  offsetFromSymbolStart = "348">
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "186">
                </Location>
                <Location
-                  uuid = "54C22CBE-544C-4B27-978A-2B47EE7273F6 - b588e8b803b28d48"
+                  uuid = "604A0E71-8C13-430A-86D2-A055C848FFC9 - e8137dacb250a399"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #3 @Sendable () async -&gt; () in ARCommerce.AddAndUpdateProductView.fetchData() -&gt; ()"
+                  symbolName = "(4) await resume partial function for ARCommerce.CoreProducts.updateConfigurations(product: ARCommerce.Product, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
                   moduleName = "ARCommerce"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Views/Products/AddAndUpdateProductView.swift"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Core/Product/CoreProducts%20+ProductDetail.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "199"
-                  endingLineNumber = "199"
-                  offsetFromSymbolStart = "463">
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "604A0E71-8C13-430A-86D2-A055C848FFC9 - 800169b2e47e9fa4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for ARCommerce.CoreProducts.updateConfigurations(product: ARCommerce.Product, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Core/Product/CoreProducts%20+ProductDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "86">
+               </Location>
+               <Location
+                  uuid = "604A0E71-8C13-430A-86D2-A055C848FFC9 - 456b17b75a97c3a6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for ARCommerce.CoreProducts.updateConfigurations(product: ARCommerce.Product, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Core/Product/CoreProducts%20+ProductDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "24"
+                  endingLineNumber = "24"
+                  offsetFromSymbolStart = "72">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -1201,8 +716,8 @@
             filePath = "ARCommerce/Views/Products/AddAndUpdateProductView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "133"
+            endingLineNumber = "133"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
@@ -1249,8 +764,8 @@
             filePath = "ARCommerce/Views/Products/AddAndUpdateProductView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
             landmarkName = "updateProduct()"
             landmarkType = "7">
             <Locations>
@@ -1312,10 +827,245 @@
             filePath = "ARCommerce/Views/Products/AddAndUpdateProductView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "body"
             landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2B730914-74F3-4333-9318-1A2BF4E7D5AD"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ARCommerce/Views/Products/AddAndUpdateProductView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
+            landmarkName = "updateProduct()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2B730914-74F3-4333-9318-1A2BF4E7D5AD - 7a6c7ccffbb67379"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in ARCommerce.AddAndUpdateProductView.updateProduct() -&gt; ()"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Views/Products/AddAndUpdateProductView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "255"
+                  endingLineNumber = "255"
+                  offsetFromSymbolStart = "201">
+               </Location>
+               <Location
+                  uuid = "2B730914-74F3-4333-9318-1A2BF4E7D5AD - dde8f22753ec6971"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) await resume partial function for closure #1 @Sendable () async -&gt; () in ARCommerce.AddAndUpdateProductView.updateProduct() -&gt; ()"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Views/Products/AddAndUpdateProductView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "255"
+                  endingLineNumber = "255"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "2B730914-74F3-4333-9318-1A2BF4E7D5AD - af558e9c6e4d367f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #1 @Sendable () async -&gt; () in ARCommerce.AddAndUpdateProductView.updateProduct() -&gt; ()"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Views/Products/AddAndUpdateProductView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "255"
+                  endingLineNumber = "255"
+                  offsetFromSymbolStart = "54">
+               </Location>
+               <Location
+                  uuid = "2B730914-74F3-4333-9318-1A2BF4E7D5AD - e39e90ac90c0f57d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for closure #1 @Sendable () async -&gt; () in ARCommerce.AddAndUpdateProductView.updateProduct() -&gt; ()"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Views/Products/AddAndUpdateProductView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "255"
+                  endingLineNumber = "255"
+                  offsetFromSymbolStart = "70">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C430626F-013A-4832-9387-85B83CD0CB5F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ARCommerce/Views/Products/AddAndUpdateProductView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "fetchData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C430626F-013A-4832-9387-85B83CD0CB5F - b588e8b803b28da9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #3 @Sendable () async -&gt; () in ARCommerce.AddAndUpdateProductView.fetchData() -&gt; ()"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Views/Products/AddAndUpdateProductView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "939">
+               </Location>
+               <Location
+                  uuid = "C430626F-013A-4832-9387-85B83CD0CB5F - 5c9e993e4ba662a4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Combine.Subscribers.Completion&lt;Swift.Never&gt;) -&gt; () in closure #3 @Sendable () async -&gt; () in ARCommerce.AddAndUpdateProductView.fetchData() -&gt; ()"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Views/Products/AddAndUpdateProductView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "200"
+                  endingLineNumber = "200"
+                  offsetFromSymbolStart = "317">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3E2B1616-16B0-4B24-95E3-32BC5365C15A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ARCommerce/Core/Product/CoreProducts +ProductDetail.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "addConfigurations(product:listConfigurations:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3E2B1616-16B0-4B24-95E3-32BC5365C15A - 36c2760c62a9aa5d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for ARCommerce.CoreProducts.addConfigurations(product: ARCommerce.Product, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Core/Product/CoreProducts%20+ProductDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "227">
+               </Location>
+               <Location
+                  uuid = "3E2B1616-16B0-4B24-95E3-32BC5365C15A - 6a615bef9e976643"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for ARCommerce.CoreProducts.addConfigurations(product: ARCommerce.Product, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Core/Product/CoreProducts%20+ProductDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "186">
+               </Location>
+               <Location
+                  uuid = "3E2B1616-16B0-4B24-95E3-32BC5365C15A - 7c90d7d60945bc56"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) await resume partial function for ARCommerce.CoreProducts.addConfigurations(product: ARCommerce.Product, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Core/Product/CoreProducts%20+ProductDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "3E2B1616-16B0-4B24-95E3-32BC5365C15A - 36c2760c62a9aa5d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for ARCommerce.CoreProducts.addConfigurations(product: ARCommerce.Product, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Core/Product/CoreProducts%20+ProductDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "86">
+               </Location>
+               <Location
+                  uuid = "3E2B1616-16B0-4B24-95E3-32BC5365C15A - c2a7152cc6c2ee5f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for ARCommerce.CoreProducts.addConfigurations(product: ARCommerce.Product, listConfigurations: Swift.Array&lt;ARCommerce.ProductConfig&gt;) async throws -&gt; ARCommerce.ProductConfigResult"
+                  moduleName = "ARCommerce"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucho/Developments/ARCommerce-Admin/ARCommerce/ARCommerce/Core/Product/CoreProducts%20+ProductDetail.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "16"
+                  endingLineNumber = "16"
+                  offsetFromSymbolStart = "72">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "58CF87B8-C9AF-4E33-B08E-FAC922071F70"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ARCommerce/API/APIProductDetail.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "updateConfigurations(productId:listConfigurations:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

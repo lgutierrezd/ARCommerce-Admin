@@ -37,6 +37,8 @@ struct AddBrandView: View {
                 }
             }
         }
+        .navigationTitle("Add Brand")
+        .navigationBarTitleDisplayMode(.large)
     }
 }
 

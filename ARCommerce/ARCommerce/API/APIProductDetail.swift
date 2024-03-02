@@ -47,7 +47,7 @@ class APIProductDetail: NetworkRequestable {
             ]
             mainBody["configs"]?.append(requestBody)
         }
-        print("mainBody", mainBody)
+        
         let bodyData = try JSONSerialization.data(withJSONObject: mainBody)
         let request = APIRequest(url: url, method: .post, body: bodyData)
         
@@ -103,7 +103,7 @@ class APIProductDetail: NetworkRequestable {
             
             let dataProduct = try JSONSerialization.data(withJSONObject: configsJson)
             let decoder = JSONDecoder()
-            
+            print("getProductcConfiguration configsJson", configsJson)
             return try decoder.decode([Config].self, from: dataProduct)
         } catch {
             throw error
@@ -150,7 +150,7 @@ class APIProductDetail: NetworkRequestable {
 
             mainBody["configs"]?.append(requestBody)
         }
-        
+        print("getProductcConfiguration mainBody", mainBody)
         let bodyData = try JSONSerialization.data(withJSONObject: mainBody)
         let request = APIRequest(url: url, method: .patch, body: bodyData)
         

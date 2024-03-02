@@ -35,7 +35,7 @@ class APIProductsSeeAll: NetworkRequestable {
             
             let decoder = JSONDecoder()
             let products = try decoder.decode([ProductV1].self, from: dataProduct)
-            products.forEach({ print("brand, supplier, categories", $0.brand.name, $0.suppliers.first, $0.categories.first?.name) })
+            
             return products
         } catch {
             throw error

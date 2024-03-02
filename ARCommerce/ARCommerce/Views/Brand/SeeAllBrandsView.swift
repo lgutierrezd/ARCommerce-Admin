@@ -56,6 +56,8 @@ struct SeeAllBrandsView: View {
                 }
             })
         }
+        .navigationTitle("See all Brands")
+        .navigationBarTitleDisplayMode(.large)
         .onAppear() {
             Task {
                 do {

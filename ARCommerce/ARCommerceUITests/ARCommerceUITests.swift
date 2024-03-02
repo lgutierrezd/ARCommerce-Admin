@@ -59,8 +59,8 @@ final class ARCommerceUITests: XCTestCase {
             let addProductButton = app.navigationBars["_TtGC7SwiftUI32NavigationStackHosting"].buttons["Add Product"]
             addProductButton.tap()
             collectionViewsQuery/*@START_MENU_TOKEN@*/.buttons["Categories"]/*[[".cells.buttons[\"Categories\"]",".buttons[\"Categories\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-            collectionViewsQuery.element.swipeUp()
-            collectionViewsQuery.element.swipeUp()
+//            collectionViewsQuery.element.swipeUp()
+//            collectionViewsQuery.element.swipeUp()
             collectionViewsQuery.buttons["Apple"].tap()
             addProductButton.tap()
             collectionViewsQuery/*@START_MENU_TOKEN@*/.buttons["Suppliers"]/*[[".cells.buttons[\"Suppliers\"]",".buttons[\"Suppliers\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
