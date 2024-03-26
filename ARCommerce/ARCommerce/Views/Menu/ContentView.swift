@@ -10,22 +10,24 @@ import SwiftData
 
 struct ContentView: View {
     @EnvironmentObject var appSettings: AppSettings
-    
     var body: some View {
         Group {
             if appSettings.isLoggedIn {
-                MainMenu()
+                if appSettings.user.role == "user" {
+                    Text("asda")
+                } else {
+                    MainMenu()
+                }
+                
             } else {
                 LoginView()
             }
         }
-        
     }
 }
 
 struct MainMenu: View {
     @EnvironmentObject var appSettings: AppSettings
-    
     @StateObject private var menuViewModel = MenuViewModel()
     @ObservedObject private var globalDataManagerViewModel = GlobalDataManagerViewModel.shared
     
@@ -72,11 +74,11 @@ struct MainMenu: View {
                     }
                 case 1:
                     if selectedItem.id == 0 {
-                        AddAndUpdateProductView(product: Product(id: "", name: "", slug: "", isActive: true, categories: [], brand: "", suppliers: []), isUpdate: false, selectedCategories: Set<String>())
+                        //ManageProductView(isUpdate: false, product: nil)
                     } else if selectedItem.id == 1 {
                         ModifyProductView()
                     } else {
-                        SeeAllProductsView()
+//                        SeeAllProductsView()
                     }
                 case 2:
                     if selectedItem.id == 0 {
@@ -107,6 +109,7 @@ struct MainMenu: View {
                         AddLocationView()
                     } else {
                         SeeAllLocationsView()
+                        
                     }
                 case nil:
                     Text("None")
@@ -141,10 +144,13 @@ struct MainMenu: View {
             Task {
                 do {
                     try await menuViewModel.getSaveInitialData()
-                    try globalDataManagerViewModel.getInitialData()
+                    //try globalDataManagerViewModel.getInitialData()
                 } catch {
                     print("Error loading pickers: \(error)")
                 }
+            }
+            Task {
+                //try await globalDataManagerViewModel.getAllLocations()
             }
         }
         

@@ -7,19 +7,29 @@
 
 import SwiftUI
 
-struct Product: Identifiable, Codable, Equatable, Hashable {
-    var id: String
-    var name: String
-    var slug: String
-    var isActive: Bool
-    var categories: [String]
-    var brand: String
-    var suppliers: [String]
+struct ProductsResponse: Codable {
+    let status: String
+    let result: Int
+    let data: Data
+    
+    struct Data: Codable {
+        let data: [Product]
+    }
 }
 
-class ProductV1: Codable {
+struct ProductResponse: Codable {
+    let status: String
+    let result: Int
+    let data: Data
+    
+    struct Data: Codable {
+        let data: Product
+    }
+}
+
+struct Product: Codable {
     let _id: String
-    var brand: Brand
+    var brand: Brand?
     var categories: [Category]
     let id: String
     var isActive: Bool
@@ -28,7 +38,7 @@ class ProductV1: Codable {
     var slug: String
     var suppliers: [String]
     
-    init(_id: String, brand: Brand = Brand(id: "", name: ""), categories: [Category] = [], id: String, isActive: Bool, name: String, reviews: [Review] = [], slug: String, suppliers: [String] = []) {
+    init(_id: String, brand: Brand? = nil, categories: [Category] = [], id: String, isActive: Bool, name: String, reviews: [Review] = [], slug: String, suppliers: [String] = []) {
         self._id = _id
         self.brand = brand
         self.categories = categories
@@ -41,73 +51,64 @@ class ProductV1: Codable {
     }
 }
 
-class ProductDetail: Identifiable {
-    var id: String
-    var configs: [ProductConfig]
+struct ProductDetailResponse: Codable {
+    let status: String
+    let data: Data
     
-    init(id: String, configs: [ProductConfig]) {
-        self.id = id
+    struct Data: Codable {
+        let data: ProductDetail
+    }
+}
+
+struct ProductDetail: Codable {
+    var _id: String
+    var product: String
+    var configs: [Config]
+    
+    init(_id: String, product: String, configs: [Config]) {
+        self._id = _id
+        self.product = product
         self.configs = configs
     }
 }
 
-
-
-
-struct ProductConfig: Identifiable {
-    var id: String
-    var price: Double
-    var priceText: String
-    var discountPrice: Double
-    var discountPriceText: String
-    var productionPrice: Double
-    var productionPriceText: String
-    var type: String
-    var selectedColor: Color = .blue
-    var colorHex: String
-    var size: String
-    var weight: String
-    var images: [String]
-    var uimages: [UIImage]?
-    var productDescription: String
-    var stock: [Stock]
-    var isActive: Bool
-    var extraConfig: Dictionary<String, String>?
+struct DetailProductResponse: Codable {
+    let status: String
+    let data: Data
     
-    init(id: String, price: Double, discountPrice: Double, productionPrice: Double, type: String, selectedColor: Color, colorHex: String, size: String, weight: String, images: [String], uimages: [UIImage]? = [], productDescription: String, stock: [Stock] = [], isActive: Bool, extraConfig: Dictionary<String, String> = [:]) {
-        self.id = id
-        self.price = price
-        self.discountPrice = discountPrice
-        self.discountPriceText = String(discountPrice)
-        self.productionPrice = productionPrice
-        self.selectedColor = selectedColor
-        self.colorHex = colorHex
-        self.images = images
-        self.uimages = uimages
-        self.productDescription = productDescription
-        self.stock = stock
-        self.isActive = isActive
-        self.extraConfig = extraConfig
-        self.priceText = String(price)
-        self.productionPriceText = String(productionPrice)
-        self.type = type
-        self.size = size
-        self.weight = weight
+    struct Data: Codable {
+        let data: DetailProduct
+    }
+}
+
+struct DetailProduct: Codable {
+    var _id: String
+    var product: Product
+    var configs: [Config]
+    
+    init(_id: String, product: Product, configs: [Config]) {
+        self._id = _id
+        self.product = product
+        self.configs = configs
+    }
+    
+    struct Product: Codable {
+        let _id: String
+        var name: String
+        var categories: [String]
+        var brand: String
+        var slug: String
+        var id: String
     }
 }
 
 
-struct ProductConfigResult: Codable {
-    let __v: Int
-    let _id: String
-    let configs: [Config]
-}
-
-class Config: Codable {
+struct Config: Codable {
     let _id: String
     let colorHex: String
     let size: String
     let weight: String
+    let imagesUrl: String
     let images: [String]
     let isActive: Bool
     let price: Double
@@ -115,25 +116,8 @@ class Config: Codable {
     let productDescription: String
     let type: String
     let productionPrice: Double
-    let stock: [StockV1]
+    let stock: [Stock]?
     let config: [String]?
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self._id = try container.decode(String.self, forKey: ._id)
-        self.colorHex = try container.decode(String.self, forKey: .colorHex)
-        self.size = try container.decode(String.self, forKey: .size)
-        self.weight = try container.decode(String.self, forKey: .weight)
-        self.images = try container.decode([String].self, forKey: .images)
-        self.isActive = try container.decode(Bool.self, forKey: .isActive)
-        self.price = try container.decode(Double.self, forKey: .price)
-        self.discountPrice = try container.decode(Double?.self, forKey: .discountPrice) ?? 0
-        self.productDescription = try container.decode(String.self, forKey: .productDescription)
-        self.type = try container.decode(String.self, forKey: .type)
-        self.productionPrice = try container.decode(Double.self, forKey: .productionPrice)
-        self.stock = try container.decode([StockV1].self, forKey: .stock)
-        self.config = try container.decodeIfPresent([String].self, forKey: .config)
-    }
 }
 
 extension Color {

@@ -7,10 +7,10 @@
 
 import Foundation
 
-class AddSupplierViewModel: ObservableObject {
+class AddSupplierViewModel {
     
-    func addSupplier(name: String, email: String, phone:  String) async throws -> Supplier {
-        let coreSupplier = CoreSupplier()
-        return try await coreSupplier.addSupplier(supplier: Supplier(id: "", name: name, email: email, phone: phone))
+    let supplierService: SupplierServiceType
+    init(supplierService: SupplierServiceType = SupplierService()) {
+        self.supplierService = supplierService
     }
 }

@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import Combine
 
 struct SeeAllCategoriesView: View {
     @StateObject var seeAllCategoriesViewModel = SeeAllCategoriesViewModel()
-    @ObservedObject var globalDataManagerViewModel = GlobalDataManagerViewModel.shared
+    @State var searchText: String = ""
+    @State var categoriesFiltered: [ARCommerce.Category] = []
+    @State private var subscribers = Set<AnyCancellable>()
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    @State private var isLoading = false
     @State var page: Int = 1 {
         willSet {
             if newValue < 0 {
@@ -19,146 +25,143 @@ struct SeeAllCategoriesView: View {
     }
     
     @State private var uuid = UUID()
-    @State var name = ""
-    @State var numberOfSetUps: Int = 0
-    @State private var selectedCategory: ARCommerce.CategoryV1?
-    @State private var selectedChildsCategoryId: Set<String> = Set<String>()
-    @State private var keys: [String] = Array(repeating: "", count: 0)
-    @State private var values: [String] = Array(repeating: "", count: 0)
-    @State private var isMain: Bool = false
-    @State private var pickerParentCategories: [ARCommerce.Category] = []
+    
+    @State private var selectedCategory: ARCommerce.Category?
     
     var body: some View {
         NavigationStack {
-            List {
-                CategoryFormView(
-                    pickerParentCategories: pickerParentCategories,
-                    name: $name,
-                    selectedChildsCategoryId: $selectedChildsCategoryId,
-                    selectedCategory: $selectedCategory ,
-                    keys: $keys,
-                    values: $values,
-                    numberOfSetUps: $numberOfSetUps, isMain: $isMain,
-                    action: {
+            ZStack {
+                List {
+                    CategoryFormView(selectedCategory: $selectedCategory, action: {
                         updateCategory()
-                    }, isUpdate: true
-                )
-                
-                
-                //LIST OF CATEGORIES
-                Section {
-                    ForEach(seeAllCategoriesViewModel.categories) { cat in
-                        HStack {
-                            if let isMain = cat.isMain {
-                                Text(cat.name)
-                                if isMain {
-                                    Text("Is Main")
-                                        .foregroundStyle(Color.red)
-                                }
-                            } else {
-                                Text(cat.name)
-                            }
-                            
-                        }
-                        .onTapGesture {
-                            selectedCategory = nil
-                            selectedCategory = cat
-                            selectedChildsCategoryId = Set(cat.childs ?? [])
-                            name = cat.name
-                            isMain = cat.isMain ?? false
-                            numberOfSetUps = selectedCategory?.setup?.count ?? 0
-                            keys.removeAll()
-                            values.removeAll()
-                            if let setup = cat.setup {
-                                for dictionary in setup {
-                                    keys.append(dictionary.key)
-                                    values.append(dictionary.value)
-                                }
-                            }
-                        }
-                    }
-                    .onDelete(perform: { indexSet in
-                        let index = indexSet[indexSet.startIndex]
-                        let categoryToDelete = seeAllCategoriesViewModel.categories[index]
-                        Task {
-                            do {
-                                let _ = try await seeAllCategoriesViewModel.deleteCategory(category: categoryToDelete)
-                            } catch {
-                                
-                            }
-                            
-                        }
-                        
-                    })
-                } header: {
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            page -= 1
-                            getCategories()
-                        }, label: {
-                            Image(systemName: "chevron.left")
-                        })
-                        .disabled(page == 1 ? true : false)
-                        Button(action: {
-                            page += 1
-                            getCategories()
-                        }, label: {
-                            Image(systemName: "chevron.right")
-                        })
-                        .disabled(seeAllCategoriesViewModel.categories.count < 8)
-                    }
+                    }, isUpdate: true)
+                    
+                    searchTextField
+                    
+                    list
                 }
-                
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                }
+                if isLoading {
+                    ProgressView()
+                }
             }
+            
         }
         .onAppear() {
             getCategories()
         }
     }
     
-    fileprivate func updateCategory() {
-        Task {
-            var setup: [Setup] = []
-            keys.enumerated().forEach { index, key in
-                setup.append(Setup(_id: String(index), key: key, value: values[index]))
+    var searchTextField: some View {
+        TextField("Search Category", text: $searchText)
+            .onChange(of: searchText) { _, newValue in
+                let regexPattern = "(?i)\(newValue)"
+                let regex = try! NSRegularExpression(pattern: regexPattern)
+                categoriesFiltered = seeAllCategoriesViewModel.categories.filter { category in
+                    let name = category.name
+                    let range = NSRange(location: 0, length: name.utf16.count)
+                    return regex.firstMatch(in: name, options: [], range: range) != nil
+                }.filter({ $0.childs?.isEmpty ?? false }).sorted { $0.name < $1.name }
             }
-            do {
-                selectedCategory?.childs = Array<String>(selectedChildsCategoryId)
-                selectedCategory?.setup = setup
-                selectedCategory?.isMain = isMain
-                if let selectedCategory {
-                    let _ = try await seeAllCategoriesViewModel.updateCategory(category: selectedCategory)
-                    
+    }
+    
+    var list: some View {
+        ForEach(categoriesFiltered) { cat in
+            HStack {
+                if let isMain = cat.isMain {
+                    Text(cat.name)
+                    if isMain {
+                        Text("Is Main")
+                            .foregroundStyle(Color.red)
+                    }
+                } else {
+                    Text(cat.name)
                 }
-                name = ""
-                keys = []
-                values = []
-                isMain = false
-                selectedCategory = nil
-            } catch {
                 
             }
+            .task {
+                if cat == seeAllCategoriesViewModel.categories.last && !isLoading {
+                    page += 1
+                    getCategories()
+                }
+            }
             
+            .onTapGesture {
+                selectedCategory = nil
+                selectedCategory = cat
+            }
         }
+        .onDelete(perform: { indexSet in
+            let index = indexSet[indexSet.startIndex]
+            let categoryToDelete = seeAllCategoriesViewModel.categories[index]
+            deleteCategory(id: categoryToDelete.id)
+        })
+    }
+    
+    fileprivate func deleteCategory(id: String) {
+        self.isLoading = true
+        seeAllCategoriesViewModel.categoryService.deleteCategory(id: id)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    self.isLoading = false
+                    seeAllCategoriesViewModel.categories.removeAll(where: { $0.id == id })
+                case .failure(let error):
+                    let (showAlert, alertMessage) = AREErrors.handleError(error)
+                    self.showAlert = showAlert
+                    self.alertMessage = alertMessage
+                }
+            }, receiveValue: { value in
+                
+            })
+            .store(in: &subscribers)
+    }
+    
+    fileprivate func updateCategory() {
+        self.isLoading = true
+        guard let category = self.selectedCategory else { return }
+        seeAllCategoriesViewModel.categoryService.updateCategory(category: category)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    self.isLoading = false
+                case .failure(let error):
+                    let (showAlert, alertMessage) = AREErrors.handleError(error)
+                    self.showAlert = showAlert
+                    self.alertMessage = alertMessage
+                }
+            }, receiveValue: { value in
+                self.selectedCategory = value.data.data
+            })
+            .store(in: &subscribers)
     }
     
     fileprivate func getCategories() {
-        
-        Task {
-            do {
-                try globalDataManagerViewModel.getInitialData()
-                pickerParentCategories = globalDataManagerViewModel.categories
-                try await seeAllCategoriesViewModel.getAllCategories(page: page, limit: 20)
-            } catch {
-                
+        self.isLoading = true
+        seeAllCategoriesViewModel.categoryService.getCategories(page: String(page), limit: "20").sink(receiveCompletion: { completion in
+            switch completion {
+            case .finished:
+                self.isLoading = false
+            case .failure(let error):
+                let (showAlert, alertMessage) = AREErrors.handleError(error)
+                self.showAlert = showAlert
+                self.alertMessage = alertMessage
             }
-        }
+        }, receiveValue: { value in
+            page = value.data.data.count == 0 ? page - 1 : page
+            value.data.data.forEach{ newCategory in
+                seeAllCategoriesViewModel.categories.append(newCategory)
+                categoriesFiltered = seeAllCategoriesViewModel.categories
+            }
+        })
+        .store(in: &subscribers)
     }
 }
-//
-//#Preview {
-//    SeeAllCategoriesView()
-//}
+
+#Preview {
+    SeeAllCategoriesView()
+}
 
 

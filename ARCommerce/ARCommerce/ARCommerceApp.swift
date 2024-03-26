@@ -17,7 +17,9 @@ struct ARCommerceApp: App {
             ContentView()
                 .environmentObject(appSettings)
                 .onAppear() {
-                    appSettings.loadCookies()
+                    if let jwtToken = UserDefaults.standard.string(forKey: "jwtToken"), !jwtToken.isEmpty {
+                        appSettings.isLoggedIn = true
+                    }
                 }
         }
     }

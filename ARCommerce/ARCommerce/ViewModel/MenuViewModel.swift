@@ -18,10 +18,9 @@ import Observation
                               MenuItem(id: 2, name: "See All Products"),
         ]
         
-        let orderMenuItems = [ MenuItem(id: 0, name: "Espresso AV"),
-                               MenuItem(id: 1, name: "Espresso EP"),
-                               MenuItem(id: 2, name: "Pour Over"),
-                               MenuItem(id: 3, name: "Steam")
+        let orderMenuItems = [ MenuItem(id: 0, name: "New Orders"),
+                               MenuItem(id: 1, name: "Reports"),
+                               MenuItem(id: 2, name: "Sales"),
         ]
         
         let brandItems = [ MenuItem(id: 0, name: "Add Brand"),
@@ -73,8 +72,8 @@ import Observation
     }
     
     func getSaveInitialData() async throws  {
-        let coreProducts = CoreProducts()
-        let _ = try await coreProducts.getSaveInitialData(saveInDB: true)
+//        let coreProducts = CoreProducts()
+//        let _ = try await coreProducts.getSaveInitialData(saveInDB: true)
     }
     
 }

@@ -8,9 +8,9 @@
 import SwiftUI
 
 class AddBrandViewModel {
+    let brandService: BrandServiceType
     
-    func addBrand(name: String) async throws -> Brand {
-        let coreBrand = CoreBrand()
-        return try await coreBrand.addBrand(brand: Brand(id: "", name: name))
+    init(brandService: BrandServiceType = BrandService()) {
+        self.brandService = brandService
     }
 }

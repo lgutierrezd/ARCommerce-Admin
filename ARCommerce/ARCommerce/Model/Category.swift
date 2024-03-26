@@ -7,103 +7,75 @@
 
 import SwiftData
 
-class Setup: Identifiable, Codable, Hashable {
-    let _id: String
+struct Setup: Identifiable, Codable, Hashable {
+    let id: String
     var key: String
     var value: String
     
-    init(_id: String, key: String, value: String) {
-        self._id = _id
+    init(id: String, key: String, value: String) {
+        self.id = id
         self.key = key
         self.value = value
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(_id)
+        hasher.combine(id)
         hasher.combine(key)
         hasher.combine(value)
     }
     
-    static func == (lhs: Setup, rhs: Setup) -> Bool {
-        return lhs._id == rhs._id && lhs.key == rhs.key && lhs.value == rhs.value
-    }
-}
-
-
-@Model
-class Category: Hashable, Codable, Equatable {
-    @Attribute(.unique) var _id: String
-    var name: String
-    @Relationship var childs: [String]? = nil
-    var isMain: Bool?
-    var setup: [Setup]? = nil
-    
-    init(_id: String, name: String, childs: [String]? = nil, isMain: Bool? = false ,setup: [Setup]? = nil) {
-        self._id = _id
-        self.name = name
-        self.childs = childs
-        self.isMain = isMain
-        self.setup = setup
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        self._id = try container.decode(String.self, forKey: ._id)
-        self.name = try container.decode(String.self, forKey: .name)
-        self.isMain = try? container.decode(Bool.self, forKey: .isMain)
-        if let setup = try? container.decode([Setup].self, forKey: .setup) {
-            self.setup = setup
-        }
-        if let childs = try? container.decode([String].self, forKey: .childs) {
-            self.childs = childs
-        } else {
-            self.childs = nil
-        }
-        
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(_id, forKey: ._id)
-        try container.encode(name, forKey: .name)
-        try container.encode(isMain, forKey: .isMain)
-        try container.encode(setup, forKey: .setup)
-        try container.encode(childs, forKey: .childs)
-    }
-    
     private enum CodingKeys: String, CodingKey {
-        case _id
-        case name
-        case childs
-        case isMain
-        case setup
+        case id = "_id"
+        case key
+        case value
+    }
+    
+    static func == (lhs: Setup, rhs: Setup) -> Bool {
+        return lhs.id == rhs.id && lhs.key == rhs.key && lhs.value == rhs.value
     }
 }
 
-class CategoryV1: Codable, Identifiable, Equatable, Hashable {
-    var _id: String
+struct CategoriesResponse: Codable {
+    let status: String
+    let results: Int
+    let data: Data
+    struct Data: Codable {
+        let data: [Category]
+    }
+}
+
+struct CategoryResponse: Codable {
+    let status: String
+    let data: Data
+    struct Data: Codable {
+        let data: Category
+    }
+}
+
+struct Category: Codable, Identifiable, Equatable, Hashable {
+    var id: String
     var name: String
     var childs: [String]? = nil
-    var isMain: Bool?
+    var isMain: Bool? = false
     var setup: [Setup]? = nil
     
     init() {
-        self._id = ""
+        self.id = ""
         self.name = ""
         self.isMain = false
     }
     
     init(_id: String, name: String, childs: [String]? = nil, isMain:Bool? = false ,setup: [Setup]? = nil) {
-        self._id = _id
+        self.id = _id
         self.name = name
         self.childs = childs
         self.isMain = isMain
         self.setup = setup
     }
     
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self._id = try container.decode(String.self, forKey: ._id)
+        self.id = try container.decode(String.self, forKey: .id)
         self.name = try container.decode(String.self, forKey: .name)
         if let setup = try? container.decode([Setup].self, forKey: .setup) {
             self.setup = setup
@@ -119,7 +91,7 @@ class CategoryV1: Codable, Identifiable, Equatable, Hashable {
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(_id, forKey: ._id)
+        try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
         try container.encode(setup, forKey: .setup)
         try container.encode(isMain, forKey: .isMain)
@@ -127,7 +99,7 @@ class CategoryV1: Codable, Identifiable, Equatable, Hashable {
     }
     
     private enum CodingKeys: String, CodingKey {
-        case _id
+        case id = "_id"
         case name
         case childs
         case isMain
@@ -135,14 +107,14 @@ class CategoryV1: Codable, Identifiable, Equatable, Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(_id)
+        hasher.combine(id)
         hasher.combine(name)
         hasher.combine(childs)
         hasher.combine(isMain)
         hasher.combine(setup)
     }
     
-    static func == (lhs: CategoryV1, rhs: CategoryV1) -> Bool {
-        return lhs._id == rhs._id && lhs.name == rhs.name && lhs.childs == rhs.childs && lhs.setup == rhs.setup && lhs.isMain == rhs.isMain
+    static func == (lhs: Category, rhs: Category) -> Bool {
+        return lhs.id == rhs.id && lhs.name == rhs.name && lhs.childs == rhs.childs && lhs.setup == rhs.setup && lhs.isMain == rhs.isMain
     }
 }

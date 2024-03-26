@@ -13,24 +13,19 @@ final class AppSettings: ObservableObject {
     @Published var themeColor: Color = .blue
     @Published var isLoggedIn = false
     @Published var user: User
-    
+    @Published var token: String
     @Published var selectedCategoryId: MenuItem.ID?
     @Published var selectedItem: MenuItem?
     
     init(userDefaults: UserDefaults = .standard) {
         self.userDefaults = userDefaults
         self.user = (try? userDefaults.getObject(forKey: "user", castTo: User.self)) ?? User(_id: "", name: "", email: "", role: "")
-           
+        self.token = (try? userDefaults.getObject(forKey: "jwtToken", castTo: String.self)) ?? ""
     }
     
-    func loadCookies() {
-        let storedCookies = HTTPCookieStorage.shared.cookies
-        if let jwtCookie = storedCookies?.first(where: { $0.name == "jwt" }) {
-            if let expires = jwtCookie.expiresDate {
-                if expires  > Date.now {
-                    self.isLoggedIn = true
-                }
-            }
+    func saveToken() {
+        queue.async(flags: .barrier) { [weak self] in
+            self?.userDefaults.setObject(self?.token, forKey: "jwtToken")
         }
     }
     

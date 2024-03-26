@@ -6,38 +6,27 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AddSupplierView: View {
-    @StateObject var addSupplierViewModel = AddSupplierViewModel()
-    @State var name: String = ""
-    @State var email: String = ""
-    @State var phone: String = ""
+    var addSupplierViewModel = AddSupplierViewModel()
+    @State var supplier: Supplier = Supplier(id: "", name: "", email: "", phone: "")
+    @State private var subscriptions: [AnyCancellable] = .init()
     @State var loading = false
     @State var showAlert = false
     @State var alertText = ""
     var body: some View {
-        VStack {
+        ZStack {
             List {
                 Section {
-                    TextField("Name", text: $name)
-                    TextField("Email", text: $email)
-                    TextField("Phone", text: $phone)
+                    TextField("Name", text: $supplier.name)
+                    TextField("Email", text: $supplier.email)
+                    TextField("Phone", text: $supplier.phone)
                 } header: {
                     HStack {
                         Spacer()
                         Button(action: {
-                            Task {
-                                do {
-                                    let _ = try await addSupplierViewModel.addSupplier(name:name, email:email, phone:phone)
-                                    email = ""
-                                    name = ""
-                                    phone = ""
-                                } catch {
-                                    handleError(error)
-                                }
-                                
-                            }
-                            
+                            addSupplier()
                         }, label: {
                             Image(systemName: "plus")
                         })
@@ -55,27 +44,25 @@ struct AddSupplierView: View {
         .navigationBarTitleDisplayMode(.large)
     }
     
-    fileprivate func handleError(_ error: Error) {
-        if let customError = error as? CustomError {
-            switch customError {
-            case .credentialError:
-                alertText = "An error has occurred, try again."
-                showAlert = true
-            case .internalServerError(let value):
-                alertText = value
-                showAlert = true
-            case .notFound:
-                alertText = "Product do not exits."
-                showAlert = true
-            case .invalidCase:
-                alertText = "Something is going wrong."
-                showAlert = true
-            }
-            
-        } else {
-//            print(error.localizedDescription)
-        }
-        self.loading = false
+    
+    fileprivate func addSupplier() {
+        loading = true
+        addSupplierViewModel.supplierService
+            .addSupplier(supplier: self.supplier)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    loading = false
+                case .failure(let error):
+                    let (showAlert, alertMessage) = AREErrors.handleError(error)
+                    self.showAlert = showAlert
+                    self.alertText = alertMessage
+                    loading = false
+                }
+            }, receiveValue: { _ in
+                self.supplier = Supplier(id: "", name: "", email: "", phone: "")
+            })
+            .store(in: &subscriptions)
     }
 }
 

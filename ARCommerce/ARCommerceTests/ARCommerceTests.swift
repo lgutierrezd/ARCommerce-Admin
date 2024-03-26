@@ -6,12 +6,14 @@
 //
 
 import XCTest
+import Combine
 @testable import ARCommerce
 
 final class ARCommerceTests: XCTestCase {
 
+    var subscribers = Set<AnyCancellable>()
+    
     override func setUpWithError() throws {
-        let coreProducts = CoreProducts()
         
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -21,11 +23,28 @@ final class ARCommerceTests: XCTestCase {
     }
 
     func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+        let categoryService = CategoryService()
+                let expectation = XCTestExpectation(description: "Recibir categorías")
+
+                categoryService.getCategories(page: "1", limit: "20")
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            // Si la solicitud se completa correctamente, cumplimos con la expectativa
+                            expectation.fulfill()
+                        case .failure(let error):
+                            // Si hay un error, fallamos la prueba
+                            XCTFail("Error al obtener categorías: \(error)")
+                        }
+                    }, receiveValue: { categories in
+                        // Aquí puedes hacer las aserciones necesarias sobre las categorías recibidas
+                        // Por ejemplo, verificar que el número de categorías es el esperado
+                        XCTAssertGreaterThan(categories.count, 0, "Se esperan categorías")
+                    })
+                    .store(in: &subscribers)
+
+                // Esperamos un tiempo razonable para que se complete la solicitud
+                wait(for: [expectation], timeout: 5)
     }
 
     func testPerformanceExample() throws {

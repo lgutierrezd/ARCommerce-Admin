@@ -6,62 +6,47 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AddCategoryView: View {
     @ObservedObject var globalDataManagerViewModel = GlobalDataManagerViewModel.shared
     var addCategoryViewModel = AddCategoryViewModel()
-    
-    @State private var uuid = UUID()
-    @State var name = ""
-    @State var numberOfSetUps: Int = 0
-    @State private var selectedCategory: ARCommerce.CategoryV1?
-    @State private var selectedChildsCategoryId: Set<String> = Set<String>()
-    
-    @State private var keys: [String] = Array(repeating: "", count: 0)
-    @State private var values: [String] = Array(repeating: "", count: 0)
-    @State private var isMain: Bool = false
-    
+    @State private var subscriptions: Set<AnyCancellable> = .init()
+    @State var selectedCategory: ARCommerce.Category? = ARCommerce.Category(_id: "", name: "", childs: .init())
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    @State private var isLoading = false
     var body: some View {
         NavigationStack {
             List {
-                CategoryFormView(
-                    pickerParentCategories: globalDataManagerViewModel.categories,
-                    name: $name,
-                    selectedChildsCategoryId: $selectedChildsCategoryId,
-                    selectedCategory: $selectedCategory ,
-                    keys: $keys,
-                    values: $values,
-                    numberOfSetUps: $numberOfSetUps, isMain: $isMain,
-                    action: {
-                        addCategory()
-                    }, isUpdate: false
-                )
+                CategoryFormView(selectedCategory: $selectedCategory, action: addCategory, isUpdate: false)
             }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
+            .navigationTitle("Add Category")
+            .navigationBarTitleDisplayMode(.large)
         }
-        .navigationTitle("Add Category")
-        .navigationBarTitleDisplayMode(.large)
-        
     }
     
     func addCategory() {
-        Task {
-            var setup: [Setup] = []
-            keys.enumerated().forEach { index, key in
-                setup.append(Setup(_id: String(index), key: key, value: values[index]))
-            }
-            do {
-                let selectedChilds = Array<String>(selectedChildsCategoryId)
-                let _ = try await addCategoryViewModel.addCategory(name:name, selectedChilds: selectedChilds, setup: setup)
-                selectedCategory = nil
-                name = ""
-                keys = []
-                values = []
-                isMain = false
-            } catch {
-                
-            }
-            
+        guard let category = self.selectedCategory else {
+            return
         }
+        addCategoryViewModel.categoryService.addCategory(category: category)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    self.selectedCategory = ARCommerce.Category(_id: "", name: "", childs: .init())
+                case .failure(let error):
+                    let (showAlert, alertMessage) = AREErrors.handleError(error)
+                    self.showAlert = showAlert
+                    self.alertMessage = alertMessage
+                }
+            }, receiveValue: { value in
+                
+            })
+            .store(in: &subscriptions)
     }
 }
 

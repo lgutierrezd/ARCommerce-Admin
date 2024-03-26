@@ -8,12 +8,20 @@
 import SwiftUI
 
 class AddLocationViewModel: ObservableObject {
-    @Published var locationName: String = ""
-    @Published var lat: String = ""
-    @Published var lon: String = ""
+    @Published var location: Location?
     
-    func addLocation() async throws -> Location {
-        let coreLocation = CoreLocation()
-        return try await coreLocation.addLocation(Location: Location(_id: "", locationName: locationName, lat: lat, lon: lon))
+    let locationService: LocationServiceType
+    
+    init(
+        location: Location = Location(
+                                        id: "",
+                                        locationName: "",
+                                        lat: "",
+                                        lon: ""
+                                    ),
+        locationService: LocationServiceType = LocationService()
+    ) {
+        self.location = location
+        self.locationService = locationService
     }
 }

@@ -35,8 +35,10 @@ final class ARCommerceUITests: XCTestCase {
     }
     
     func testInsert20Products() throws {
-        app.buttons["Iniciar sesión"].tap()
-        sleep(2)
+        if app.buttons["Iniciar sesión"].exists {
+            app.buttons["Iniciar sesión"].tap()
+            sleep(2)
+        }
         let collectionViewsQuery = app.collectionViews
         
         if app.collectionViews/*@START_MENU_TOKEN@*/.staticTexts["Add Product"]/*[[".cells",".buttons[\"Add Product\"].staticTexts[\"Add Product\"]",".staticTexts[\"Add Product\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.exists {
@@ -48,7 +50,7 @@ final class ARCommerceUITests: XCTestCase {
             collectionViewsQuery/*@START_MENU_TOKEN@*/.staticTexts["Add Product"]/*[[".cells",".buttons[\"Add Product\"].staticTexts[\"Add Product\"]",".staticTexts[\"Add Product\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
         }
         
-        for i in 0..<5 {
+        for i in 0..<7 {
             let nameTextField = collectionViewsQuery/*@START_MENU_TOKEN@*/.textFields["Name"]/*[[".cells.textFields[\"Name\"]",".textFields[\"Name\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.firstMatch
             nameTextField.doubleTap()
             nameTextField.typeText("Prueba \(i)")
@@ -68,6 +70,13 @@ final class ARCommerceUITests: XCTestCase {
             addProductButton.tap()
             
             collectionViewsQuery.children(matching: .cell).element(boundBy: 6).buttons["ADD"].tap()
+            collectionViewsQuery/*@START_MENU_TOKEN@*/.buttons["size"]/*[[".cells",".segmentedControls.buttons[\"size\"]",".buttons[\"size\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
+                        
+            let textFieldSize = collectionViewsQuery/*@START_MENU_TOKEN@*/.textFields["Size"]/*[[".cells.textFields[\"Size\"]",".textFields[\"Size\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+            
+
+            textFieldSize.doubleTap()
+            textFieldSize.typeText("L")
             
             let descriptionTextField = collectionViewsQuery.textFields["Description"]
             descriptionTextField.doubleTap()
@@ -83,7 +92,10 @@ final class ARCommerceUITests: XCTestCase {
             costPriceTextField.typeText("12345")
             
             collectionViewsQuery/*@START_MENU_TOKEN@*/.buttons["Set up Stocks"]/*[[".cells.buttons[\"Set up Stocks\"]",".buttons[\"Set up Stocks\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
-            collectionViewsQuery/*@START_MENU_TOKEN@*/.buttons["ADD"]/*[[".cells.buttons[\"ADD\"]",".buttons[\"ADD\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+            sleep(1)
+            let addButton = collectionViewsQuery/*@START_MENU_TOKEN@*/.buttons["ADD"]/*[[".cells.buttons[\"ADD\"]",".buttons[\"ADD\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
+            addButton.tap()
+            //collectionViewsQuery.buttons["ADD"].tap()
             sleep(1)
             let quantityTextField = collectionViewsQuery/*@START_MENU_TOKEN@*/.textFields["Quantity"]/*[[".cells.textFields[\"Quantity\"]",".textFields[\"Quantity\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/
             quantityTextField.doubleTap()
@@ -91,11 +103,18 @@ final class ARCommerceUITests: XCTestCase {
             
             addProductButton.tap()
             collectionViewsQuery.children(matching: .cell).element(boundBy: 15).buttons["ADD"].tap()
+ 
+            app/*@START_MENU_TOKEN@*/.scrollViews.otherElements.images["Photo, August 08, 2012, 3:55 PM"]/*[[".otherElements[\"Photos\"].scrollViews.otherElements",".otherElements[\"Photo, March 30, 2018, 1:14 PM, Photo, August 08, 2012, 3:55 PM, Photo, August 08, 2012, 3:29 PM, Photo, August 08, 2012, 12:52 PM, Photo, October 09, 2009, 3:09 PM, Photo, March 12, 2011, 6:17 PM\"].images[\"Photo, August 08, 2012, 3:55 PM\"]",".images[\"Photo, August 08, 2012, 3:55 PM\"]",".scrollViews.otherElements"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.tap()
+            collectionViewsQuery.children(matching: .cell).element(boundBy: 15).buttons["ADD"].tap()
+            app/*@START_MENU_TOKEN@*/.scrollViews.otherElements.images["Photo, March 30, 2018, 1:14 PM"]/*[[".otherElements[\"Photos\"].scrollViews.otherElements",".otherElements[\"Photo, March 30, 2018, 1:14 PM, Photo, August 08, 2012, 3:55 PM, Photo, August 08, 2012, 3:29 PM, Photo, August 08, 2012, 12:52 PM, Photo, October 09, 2009, 3:09 PM, Photo, March 12, 2011, 6:17 PM\"].images[\"Photo, March 30, 2018, 1:14 PM\"]",".images[\"Photo, March 30, 2018, 1:14 PM\"]",".scrollViews.otherElements"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.tap()
+                        
             
-            app/*@START_MENU_TOKEN@*/.scrollViews.otherElements.images["Photo, 30 March 2018, 1:14 PM"]/*[[".otherElements[\"Photos\"].scrollViews.otherElements",".otherElements[\"Photo, 30 March 2018, 1:14 PM, Photo, 08 August 2012, 3:55 PM, Photo, 08 August 2012, 3:29 PM, Photo, 08 August 2012, 12:52 PM, Photo, 09 October 2009, 3:09 PM, Photo, 12 March 2011, 6:17 PM\"].images[\"Photo, 30 March 2018, 1:14 PM\"]",".images[\"Photo, 30 March 2018, 1:14 PM\"]",".scrollViews.otherElements"],[[[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.tap()
+            
+            
+            
             app.navigationBars["Add Product"]/*@START_MENU_TOKEN@*/.buttons["Add"]/*[[".otherElements[\"Add\"].buttons[\"Add\"]",".buttons[\"Add\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
             
-            sleep(5)
+            sleep(10)
         }
     }
     

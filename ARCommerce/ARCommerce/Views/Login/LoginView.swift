@@ -6,48 +6,62 @@
 //
 
 import SwiftUI
+import Combine
 
 struct LoginView: View {
-    @State private var email: String = "luchogd26@hotmail.com"
-    @State private var password: String = "pass1234"
-    
     @EnvironmentObject var appSettings: AppSettings
-    
-    let loginVM = LoginViewModel()
+    @StateObject var loginVM = LoginViewModel()
+    @State private var subscribers = Set<AnyCancellable>()
     
     @State private var showAlert = false
     @State private var alertMessage = ""
-
+    @State private var isLoading = false
+    
     var body: some View {
-        VStack {
-            TextField("Usuario", text: $email)
-                .padding()
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            SecureField("Contraseña", text: $password)
-                .padding()
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            
-            Button("Iniciar sesión") {
-                Task {
-                    do {
-                        let user = try await loginVM.login(email: email, password: password)
-                        appSettings.user = user
-                        appSettings.isLoggedIn = true
-                        
-                        appSettings.saveUser()
-                    } catch {
-                        let (showAlert, alertMessage) = AREErrors.handleLoginError(error)
-                        self.showAlert = showAlert
-                        self.alertMessage = alertMessage
+        ZStack {
+            VStack {
+                TextField("Usuario", text: $loginVM.email)
+                    .padding()
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                SecureField("Contraseña", text: $loginVM.password)
+                    .padding()
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                
+                Button("Iniciar sesión") {
+                    Task {
+                        isLoading = true
+                        loginVM.userService.login(email: loginVM.email, password: loginVM.password).sink(receiveCompletion: { completion in
+                            switch completion {
+                            case .finished:
+                                isLoading = false
+                            case .failure(let error):
+                                let (showAlert, alertMessage) = AREErrors.handleError(error)
+                                self.showAlert = showAlert
+                                self.alertMessage = alertMessage
+                            }
+                            
+                        }, receiveValue: { value in
+                            appSettings.user = value.data.user
+                            appSettings.token = value.token
+                            appSettings.isLoggedIn = true
+                            
+                            appSettings.saveUser()
+                        })
+                        .store(in: &subscribers)
                     }
                 }
+                .disabled(isLoading)
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                }
             }
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            .padding()
+            if isLoading {
+                ProgressView()
             }
         }
-        .padding()
+       
         
     }
 }

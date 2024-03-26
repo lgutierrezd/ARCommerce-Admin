@@ -7,9 +7,25 @@
 
 import SwiftData
 
-@Model
-class Supplier: Codable, Equatable, Hashable {
-    @Attribute(.unique) let id: String
+struct SuppliersResponse: Codable {
+    let status: String
+    var results: Int
+    var data: Data
+    struct Data: Codable {
+        let data: [Supplier]
+    }
+}
+
+struct SupplierResponse: Codable {
+    let status: String
+    var data: Data
+    struct Data: Codable {
+        let data: Supplier
+    }
+}
+
+struct Supplier: Codable, Equatable, Hashable, Identifiable {
+    let id: String
     var name: String
     var email: String
     var phone: String
@@ -28,7 +44,7 @@ class Supplier: Codable, Equatable, Hashable {
         case phone
     }
 
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)

@@ -1,0 +1,11 @@
+//
+//  ProductionConfig.xcconfig
+//  ARCommerce
+//
+//  Created by Luis Gutierrez on 3/24/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+API_BASE_URL = silent-blend-412918.uc.r.appspot.com/

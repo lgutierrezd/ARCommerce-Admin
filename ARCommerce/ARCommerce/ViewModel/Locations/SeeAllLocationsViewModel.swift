@@ -10,26 +10,18 @@ import SwiftUI
 class SeeAllLocationsViewModel: ObservableObject {
     @Published var locations: [Location] = []
     
-    @Published var id: String = ""
-    @Published var locationName: String = ""
-    @Published var lat: String = ""
-    @Published var lon: String = ""
+    @Published var selectedLocation: Location?
     
-    @Published var stocks: [Stock] = []
+    let locationService: LocationServiceType
     
-    @MainActor func getAllLocations() async throws {
-        let coreLocation = CoreLocation()
-        self.locations = try await coreLocation.getLocations()
-    }
-    
-    func updateLocation() async throws -> Location {
-        let coreLocation = CoreLocation()
-        return try await coreLocation.updateLocation(Location: Location(_id: id, locationName: locationName, lat: lat, lon: lon))
-    }
-    
-    func deleteLocation(location: Location) async throws -> Bool {
-        let coreLocation = CoreLocation()
-        return try await coreLocation.deleteLocation(Location: location)
+    init(
+        locations: [Location] = [], 
+        selectedLocation: Location? = nil,
+        locationService: LocationServiceType = LocationService()
+    ) {
+        self.locations = locations
+        self.selectedLocation = selectedLocation
+        self.locationService = locationService
     }
     
 }

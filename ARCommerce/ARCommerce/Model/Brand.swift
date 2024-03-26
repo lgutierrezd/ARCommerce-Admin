@@ -7,9 +7,8 @@
 
 import SwiftData
 
-@Model
-class Brand: Codable, Equatable, Hashable, Identifiable {
-    @Attribute(.unique) var id: String
+struct Brand: Codable, Equatable, Hashable, Identifiable {
+    var id: String
     var name: String
     
     init(id: String, name: String) {
@@ -22,7 +21,7 @@ class Brand: Codable, Equatable, Hashable, Identifiable {
         case name
     }
 
-    required init(from decoder: Decoder) throws {
+    init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
@@ -32,5 +31,21 @@ class Brand: Codable, Equatable, Hashable, Identifiable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
+    }
+}
+
+struct BrandsResponse: Codable {
+    let status: String
+    let data: Data
+    struct Data: Codable {
+        let data: [Brand]
+    }
+}
+
+struct BrandResponse: Codable {
+    let status: String
+    let data: Data
+    struct Data: Codable {
+        let data: Brand
     }
 }

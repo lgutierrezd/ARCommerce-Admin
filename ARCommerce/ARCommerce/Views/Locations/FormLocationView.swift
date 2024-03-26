@@ -8,17 +8,24 @@
 import SwiftUI
 
 struct FormLocationView: View {
-    @Binding var locationName: String
-    @Binding var lat: String
-    @Binding var lon: String
+    @Binding var location: Location?
     
     var body: some View {
-        TextField("Location Name", text: $locationName)
-        TextField("Latitude", text: $lat)
-        TextField("Longitude", text: $lon)
+        TextField("Location Name", text: Binding(
+            get: { self.location?.locationName ?? "" },
+            set: { self.location?.locationName = $0 }
+        ))
+        TextField("Latitude", text: Binding(
+            get: { self.location?.lat ?? "" },
+            set: { self.location?.lat = $0 }
+        ))
+        TextField("Longitude", text: Binding(
+            get: { self.location?.lon ?? "" },
+            set: { self.location?.lon = $0 }
+        ))
     }
 }
 
 #Preview {
-    FormLocationView(locationName: .constant("San Jose"), lat: .constant("10.433534"), lon: .constant("-83.453453"))
+    FormLocationView(location: .constant(nil))
 }
